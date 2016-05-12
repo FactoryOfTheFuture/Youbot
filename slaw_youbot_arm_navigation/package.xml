@@ -1,0 +1,24 @@
+<package>
+  <name>slaw_youbot_arm_navigation</name>
+  <version>1.0.0</version>
+  <description>smartlab youbot arm navigation</description>
+  <maintainer email="smartlab.liv@gmail.com">Maintained by smartlab</maintainer>
+  <license>BSD</license>
+
+  <url type="website">http://smartlab.csc.liv.ac.uk/</url>
+
+  <author>Maintained by smARTLab</author>
+
+  <!-- Dependencies which this package needs to build itself. -->
+  <buildtool_depend>catkin</buildtool_depend>
+  <!-- Dependencies needed after this package is compiled. -->
+  <run_depend>slaw_youbot_arm_navigation_srvs</run_depend>
+  <run_depend>slaw_youbot_arm_navigation_msgs</run_depend>
+  <run_depend>slaw_youbot_arm_navigation_actions</run_depend>
+  <run_depend>slaw_youbot_arm_navigation_utils</run_depend>
+
+  <!-- Dependencies needed only for running tests. -->
+  <export>
+    <metapackage/>
+  </export>
+</package>
