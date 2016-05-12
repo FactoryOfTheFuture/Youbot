@@ -1,0 +1,5 @@
+float32 arm_joint_1
+float32 arm_joint_2
+float32 arm_joint_3
+float32 arm_joint_4
+float32 arm_joint_5

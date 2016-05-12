@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<launch>
+    <include file="$(find slaw_arm_navigation)/launch/joint_trajectory_action.launch" />
+    <node pkg='slaw_arm_navigation' type='youbot_arm_server.py' name='youbot_arm_server' output="screen" />
+
+    <rosparam file="$(find slaw_arm_navigation)/config/joints_configuration.yaml" command="load" />
+    <rosparam file="$(find slaw_definitions_rockin)/config/rockin_offsets.yaml" command="load" />
+    <node pkg='slaw_arm_navigation' type='youbot_simple_ik_server.py' name='ik_service' output='screen' />
+
+    <!-- Include gripper launch-->
+    <include file="$(find slaw_gripper)/launch/gripper.launch" /> 
+
+</launch>

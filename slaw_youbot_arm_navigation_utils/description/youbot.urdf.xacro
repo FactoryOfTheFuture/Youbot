@@ -1,0 +1,171 @@
+<?xml version="1.0"?>
+<robot xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor"
+       xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
+       xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
+       xmlns:xacro="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
+       name="youbot" >
+  
+  <!-- The following included files set up definitions of parts of the robot body -->
+  <!-- misc common stuff? -->
+  <xacro:include filename="$(find youbot_description)/urdf/common.xacro" />
+
+  <!-- youbot base -->
+  <xacro:include filename="$(find youbot_description)/urdf/youbot_base/base.urdf.xacro" /> 
+
+  <!-- youbot plate -->
+  <xacro:include filename="$(find youbot_description)/urdf/youbot_plate/plate.urdf.xacro" /> 
+
+  <!-- youbot arm -->
+  <xacro:include filename="$(find youbot_description)/urdf/youbot_arm/arm.urdf.xacro"/>
+
+  <!-- youbot gripper -->
+  <xacro:include filename="$(find youbot_description)/urdf/youbot_gripper/gripper.urdf.xacro" />
+ 
+    <!-- controller manager -->
+  <xacro:include filename="$(find youbot_description)/controller/ros_controller.urdf.xacro" />
+  
+  <!-- materials for visualization -->
+  <xacro:include filename="$(find youbot_description)/urdf/materials.urdf.xacro" />
+
+  <!-- sensors -->
+  <xacro:include filename="$(find youbot_description)/urdf/sensors/hokuyo_urg04_laser.urdf.xacro" />
+ 
+  <!-- <xacro:include filename="$(find youbot_description)/urdf/sensors/kinect_camera.urdf.xacro" /> -->
+  <!-- <xacro:include filename="$(find youbot_description)/urdf/sensors/microsoft_lifecam.urdf.xacro" /> -->
+  <xacro:include filename="$(find youbot_description)/urdf/sensors/asus_xtion_camera.urdf.xacro" />
+
+  <xacro:include filename="$(find slaw_bringup)/description/camera.urdf.xacro" />
+  <xacro:include filename="$(find slaw_bringup)/description/gripper.urdf.xacro" />
+  <xacro:include filename="$(find slaw_bringup)/description/rockin_marker.urdf.xacro" />
+
+  <!-- Now we can start using the macros included above to define the actual youbot -->
+
+  <!-- The first use of a macro.  This one was defined in base.urdf.xacro above.
+       A macro like this will expand to a set of link and joint definitions, and to additional
+       Gazebo-related extensions (sensor plugins, etc).  The macro takes an argument, name, 
+       that equals "base", and uses it to generate names for its component links and joints 
+       (e.g., base_link).  The included origin block is also an argument to the macro.  By convention, 
+       the origin block defines where the component is w.r.t its parent (in this case the parent 
+       is the world frame). For more, see http://www.ros.org/wiki/xacro -->
+
+<!-- foot for arm-->
+  <xacro:youbot_base name="base"/>
+  <xacro:youbot_plate name="plate" parent="base_link">
+    <!-- <origin xyz="-0.159 0 0.055" rpy="0 0 0" /> -->
+    <origin xyz="-0.159 0 0.069" rpy="0 0 0" />
+  </xacro:youbot_plate>
+
+  <link name="/arm_old_link" />
+
+  <joint name="/arm_old" type='fixed'>
+    <origin xyz="0.143 0 0.077" rpy="0 0 ${M_PI/4}" />
+    <parent link="base_link"/>
+    <child link="/arm_old_link" />
+  </joint>
+
+  
+  <xacro:youbot_arm name="arm" parent="/arm_old_link">
+    <!-- <origin xyz="0.143 0 0.046" rpy="0 0 0" /> -->
+    <origin xyz="0.12162 0 0.13" rpy="0 0 0" /> 
+  </xacro:youbot_arm>
+  
+  <!--<xacro:youbot_gripper name="gripper" parent="arm_link_5">-->
+    <!--&lt;!&ndash; <origin xyz="0 0 0" rpy="0 0 0" /> &ndash;&gt;-->
+    <!--<origin xyz="-0.0027 0 .016" rpy="0 ${-M_PI/2} ${M_PI}" />-->
+  <!--</xacro:youbot_gripper>-->
+
+  <link name="arm_base_link" >
+    <origin xyz="0 0 0" rpy="0 0 0" />
+  </link>
+
+  <joint name="arm_base_fixed_joint" type='fixed'>-->
+    <origin xyz="0.024 0 -0.0315" rpy="0 0 0" />
+    <parent link="arm_link_0"/>
+    <child link="arm_base_link" />
+  </joint>
+
+  <link name="side_arm_link" >
+    <origin xyz="0 0 0" rpy="0 0 0" />
+  </link>
+
+  <!---->
+  <joint name="side_joint" type='revolute'>-->
+    <origin xyz="0 0 0" rpy="0 0 ${M_PI/4}" />
+    <parent link="arm_base_link"/>
+    <child link="side_arm_link" />
+    <limit effort="0" velocity="0.0" lower="0" upper="-${M_PI/2}" />
+    <axis xyz="0 0 1"/>
+  </joint>
+
+  <link name="side_link" >
+    <origin xyz="0 0 0" rpy="0 0 0" />
+  </link>
+  <joint name="side_joint_fixed" type='fixed'>-->
+    <origin xyz="0.0 0 0" rpy="0 0 0" />
+    <parent link="side_arm_link"/>
+    <child link="side_link" />
+  </joint>
+
+  <realsense_camera parent="arm_link_5">
+    <origin xyz="0.057 0 0.008" rpy="0 0 0" />
+  </realsense_camera>
+
+  <gripper_camera_fixed parent="arm_link_5" name="gripper_base_fixed">
+    <origin xyz="0.0027 0 -0.0075" rpy="0 0 0" />
+  </gripper_camera_fixed>
+
+  <link name="arm_endeffector_link" >
+    <origin xyz="0 0 0" rpy="0 0 0" />
+  </link>
+
+  <joint name="arm_endeffector_joint" type='fixed'>-->
+    <origin xyz="0. 0 0.18" rpy="0 0 0" />
+    <parent link="arm_link_5"/>
+    <child link="arm_endeffector_link" />
+  </joint>
+
+  <!---->
+  <!--<link name="/arm_tip_link" />-->
+  <!---->
+  <!--<joint name="/arm_tip" type='fixed'>-->
+    <!--<origin xyz="0 0 0.2175" rpy="0 0 0" />-->
+    <!--<parent link="arm_link_4"/>-->
+    <!--<child link="/arm_tip_link" />-->
+  <!--</joint>-->
+
+  
+    <!-- Base laser rear -->
+  <xacro:hokuyo_urg04_laser name="base_laser_rear" parent="base" ros_topic="base_scan_rear" update_rate="10" min_angle="-1.57" max_angle="1.57">
+     <origin xyz="-0.32 0.0 -0.03" rpy="0 0 ${M_PI-0.03}" />
+  </xacro:hokuyo_urg04_laser>
+
+  <!-- base laser front -->
+  
+  <xacro:hokuyo_urg04_laser name="base_laser_front" parent="base" ros_topic="scan_front" update_rate="10" min_angle="-1.57" max_angle="1.57" >
+    <origin xyz="0.32 0 -0.03" rpy="${M_PI} ${M_PI} ${M_PI}" />
+  </xacro:hokuyo_urg04_laser>
+
+
+
+  <!--
+  <xacro:cam3d_tower name="tower_r" parent="plate_link">
+    <origin xyz="-0.0659 -0.05 0.0" rpy="0 0 0" />
+  </xacro:cam3d_tower>
+
+  <xacro:cam3d_tower name="tower_l" parent="plate_link">
+    <origin xyz="-0.0659 0.05 0.0" rpy="0 0 0" />
+  </xacro:cam3d_tower>
+  -->
+  <!--   <origin xyz="0.061 -0.047 0.007" rpy="-2.606 1.504 0.486" /> -->
+
+  
+  <!-- 3D camera on tower -->
+  <!--
+  <xacro:asus_xtion_camera name="camera" parent="arm_link_5" tilt="0">
+    <origin xyz = "0.102 -0.014 0.039" rpy = "-2.983 1.514 0.133" />
+  </xacro:asus_xtion_camera>
+  -->
+
+
+
+</robot>

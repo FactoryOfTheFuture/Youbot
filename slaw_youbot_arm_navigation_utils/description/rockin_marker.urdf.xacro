@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<robot name="youbot" >
+
+    <link name="rockin_marker_link" />
+
+    <joint name="base_to_rockin_marker_fixed" type='fixed'>
+        <origin xyz="-0.25839030742645264 0 0.7905862331390381" rpy="0 0 0" />
+        <parent link="base_link"/>
+        <child link="rockin_marker_link" />
+    </joint>
+
+</robot>

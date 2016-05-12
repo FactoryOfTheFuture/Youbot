@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="realsense">
+
+        <macro name="realsense_camera" params="parent *origin">
+            <link name="camera_link" >
+            </link>
+
+            <joint name="arm_to_camera_fixed" type='fixed'>
+                <insert_block name="origin" />
+                <parent link="${parent}"/>
+                <child link="camera_offset_link" />
+            </joint>
+
+            <link name="camera_offset_link" >
+            </link>
+
+
+            <joint name="camera_to_offset_fixed" type='fixed'>
+	        <origin rpy="0 0 0" xyz="0.007 -0.015 0.034"/>
+                <parent link="camera_offset_link"/>
+                <child link="camera_link" />
+            </joint>
+
+	    
+            <joint name="camera_rgb_joint" type="fixed">
+                <origin rpy="0 0 0" xyz="0 0 0"/>
+                <parent link="camera_link"/>
+                <child link="camera_rgb_frame"/>
+            </joint>
+
+            <link name="camera_rgb_frame">
+            </link>
+
+            <joint name="camera_rgb_optical_joint" type="fixed">
+                <origin rpy="-1.570795 0 -1.570795" xyz="0 0 0"/>
+                <parent link="camera_rgb_frame"/>
+                <child link="camera_rgb_optical_frame"/>
+            </joint>
+
+            <link name="camera_rgb_optical_frame">
+            </link>
+
+            <joint name="camera_depth_joint" type="fixed">
+                <origin rpy="0 0 0" xyz="0 -0.024 0"/>
+                <parent link="camera_link"/>
+                <child link="camera_depth_frame"/>
+            </joint>
+
+            <link name="camera_depth_frame">
+            </link>
+
+            <joint name="camera_depth_optical_joint" type="fixed">
+                <origin rpy="-1.570795 0 -1.570795" xyz="0 0 0"/>
+                <parent link="camera_depth_frame"/>
+                <child link="camera_depth_optical_frame"/>
+            </joint>
+
+            <link name="camera_depth_optical_frame">
+            </link>
+
+            <link name="platform_depth_optical_link" >
+                <origin xyz="0 0 0" rpy="0 0 0" />
+            </link>
+
+            <joint name="platform_depth_joint" type='prismatic'>
+                <origin rpy="0 0 0" xyz="0 0 0"/>
+                <parent link="camera_depth_optical_frame"/>
+                <child link="platform_depth_optical_link" />
+                <limit effort="0" velocity="0.0" lower="0" upper="1.2" />
+                <axis xyz="0 0 1"/>
+            </joint>
+
+            <link name="platform_depth_link" >
+                <origin xyz="0 0 0" rpy="0 0 0" />
+            </link>
+
+            <joint name="platform_depth_optical_to_depth_link" type='fixed'>
+                <origin rpy="0 ${M_PI} ${M_PI/2}" xyz="0 0 0"/>
+                <parent link="platform_depth_optical_link"/>
+                <child link="platform_depth_link" />
+            </joint>
+
+    </macro>
+</robot>
