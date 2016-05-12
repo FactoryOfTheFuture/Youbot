@@ -49,4 +49,34 @@ rosrun slaw_youbot_arm_navigation_utils follow_sine.py
 rosrun slaw_youbot_arm_navigation_utils follow_circle.py
 ```
 
+The arm can also be controlled via service calls:
+```
+rosservice call /move_arm_ik "position: {x: 0.25, y: 0.0, z: -0.10}
+angle: 0.0
+velocity_controlled: true
+side: 'left'
+endlink_angle: 0.0
+horizontal: false
+blocking: false
+endeffector_offset: 0.0
+max_speed: 0.0"
+```
+Description of the params:
+*position*: is the endeffector position from the arm center point in the base.
 
+*angle*: is the rotation angle of the last joint
+
+*velocity_controlled*: true: try a smooth motion, i.e. all joints move the whole time,
+false: go with the maximum speed of all joints.
+
+*side*: "left", "right", "front", or "back": which side of the arm is considered front.
+
+*endlink_angle*: the angle of the second-last joint. Needed to increase range in top-down mode
+
+*horizontal*: horizontal if true, or top-down if false.
+
+*blocking*: directly return, or block until the movement is completed
+
+*endeffector_offset*: extra length for the endeffector. (i.e. if a tool is in the gripper)
+
+*max_speed*: max speed for velocity controlled mode.
