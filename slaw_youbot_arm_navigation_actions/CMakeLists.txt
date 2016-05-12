@@ -15,6 +15,7 @@ add_action_files(
   FILES
   MoveArmIK.action
   MoveArmLinear.action
+  VelocityControlledJointTrajectory.action
  )
 
 

@@ -153,7 +153,7 @@ Visualization Manager:
       Collision Enabled: false
       Enabled: true
       Links:
-        /arm_old_link:
+        /base_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -200,88 +200,6 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        base_footprint:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        base_laser_front_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        base_laser_rear_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        base_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        camera_depth_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        camera_depth_optical_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        camera_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        camera_offset_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        camera_rgb_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        camera_rgb_optical_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        caster_link_bl:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        caster_link_br:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        caster_link_fl:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        caster_link_fr:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        gripper_base_fixed_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        plate_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        platform_depth_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        platform_depth_optical_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        rockin_marker_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
         side_arm_link:
           Alpha: 1
           Show Axes: false
@@ -290,26 +208,6 @@ Visualization Manager:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        wheel_link_bl:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        wheel_link_br:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        wheel_link_fl:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        wheel_link_fr:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
       Name: RobotModel
       Robot Description: robot_description
       TF Prefix: ""
@@ -340,22 +238,22 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/XYOrbit
-      Distance: 1.96752
+      Distance: 1.95689
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.06
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0.0712502
-        Y: -0.470496
+        X: -0.028459
+        Y: 0.0638904
         Z: -3.57629e-07
       Name: Current View
       Near Clip Distance: 0.01
-      Pitch: 0.5398
+      Pitch: 0.754799
       Target Frame: <Fixed Frame>
       Value: XYOrbit (rviz)
-      Yaw: 4.13541
+      Yaw: 1.51541
     Saved: ~
 Window Geometry:
   Displays:
