@@ -2,6 +2,7 @@ import rospy
 import math
 from brics_actuator.msg import JointVelocities, JointValue
 from geometry_msgs.msg import PointStamped, Point
+from slaw_msgs.msg import BackplatePoseIdentifier
 from slaw_youbot_arm_navigation_srvs.srv import SimpleIkSolver, SimpleIkSolverRequest
 import numpy as np
 
@@ -125,29 +126,26 @@ def call_ik_solver(goal_point, side, horizontal=False, endlink_angle=0.0, endeff
         return np.array(resp.joints)
     return None
 
-LOWER_CENTER = [0.25, 0, -0.057]
-CENTER = [0.27, 0, -0.077]
-CENTER_ANGLE = [0.5, 0.1]
+LOWER_CENTER = [0.28, 0, -0.043]
+CENTER = [0.31, 0, -0.045]
+CENTER_ANGLE = [0.0, 0.3, 0.6]
 DROP = [0.37047634135746554, 1.3281082943050848, -1.1753640594875492, 2.965021872122891, 2.7544245448727414]
 
 def create_backplate_trajectory(backplate_pose, z_offset=0.0):
+    assert isinstance(backplate_pose, BackplatePoseIdentifier)
     traj = []
-    if backplate_pose == 'LOWER_CENTER':
+    if backplate_pose.description == BackplatePoseIdentifier.LOWER_CENTER:
         p = Point(*LOWER_CENTER)
         p.z += z_offset
-        conf = call_ik_solver(p, side='back')
-        conf[0] = 0.4
+        conf = call_ik_solver(p, side='back', endlink_angle=0.05)
         conf[4] += math.pi/2.
-    elif backplate_pose == 'CENTER':
-        conf = call_ik_solver(Point(*CENTER), side='back')
-    elif backplate_pose == 'LEFT':
-        conf = call_ik_solver(Point(*CENTER), side='back')
-        conf[0] = CENTER_ANGLE[0]
-    elif backplate_pose == 'DROP':
-        conf = DROP
-    else:  # backplate_pose == 'RIGHT':
-        conf = call_ik_solver(Point(*CENTER), side='back')
-        conf[0] = CENTER_ANGLE[1]
+    elif backplate_pose.description == BackplatePoseIdentifier.CENTER:
+        conf = call_ik_solver(Point(*CENTER), side='back', endlink_angle=0.05)
+    else:
+        rospy.logfatal("NOOOOOOOO POSE!!!!")
+
+    conf[0] -= CENTER_ANGLE[backplate_pose.index]
+
     traj.append(conf)
     return traj
 
