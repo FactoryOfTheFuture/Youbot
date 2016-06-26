@@ -55,15 +55,16 @@ def limit_joint_5(ang):
     return ang
 
 
-def get_forward_angle_joint_5(straight, angle):
+def get_forward_angle_joint_5(straight, angle, cam_front=False):
     angle = wrap_angle(angle)
     ang = straight - angle
 
-    # print straight, angle
-    if 0 < angle < math.pi / 2:
-        ang += math.pi
-    if 0 > angle > -math.pi / 2:
-        ang -= math.pi
+    if cam_front:
+        # print straight, angle
+        if 0 < angle < math.pi / 2:
+            ang += math.pi
+        if 0 > angle > -math.pi / 2:
+            ang -= math.pi
     ang = limit_joint_5(ang)
     return ang
 
@@ -150,7 +151,7 @@ def create_backplate_trajectory(backplate_pose, z_offset=0.0):
     return traj
 
 
-def create_place_trajectory(x, y, z, obj, side, theta=0.0, last_joint_tolerance_in_degree=15):
+def create_place_trajectory(x, y, z, obj, side, theta=0.0, last_joint_tolerance_in_degree=15, z_pre_place=0.05):
     place_point = Point(x, y, z)
     arm_config = []
     for i in range(last_joint_tolerance_in_degree):
@@ -163,14 +164,13 @@ def create_place_trajectory(x, y, z, obj, side, theta=0.0, last_joint_tolerance_
         return None
 
     arm_config_pregrasp = []
-    place_point.z += 0.05
+    place_point.z += z_pre_place
     for i in range(last_joint_tolerance_in_degree):
         ang = math.radians(i)
         arm_config_pregrasp = call_ik_solver(place_point, side, horizontal=False, endlink_angle=ang, endeffector_offset=0.0)
         if arm_config_pregrasp is not None:
             break
-        ang = math.radians(-i)
-        arm_config_pregrasp = call_ik_solver(place_point, side, horizontal=False, endlink_angle=ang, endeffector_offset=0.0)
+        arm_config_pregrasp = call_ik_solver(place_point, side, horizontal=False, endlink_angle=-ang, endeffector_offset=0.0)
         if arm_config_pregrasp is not None:
             break
 
