@@ -59,7 +59,7 @@ joints:
     max: -0.015708
     tucked: 'max'
   arm_joint_4:
-    length: 0.135
+    length: 0.114
     #length: 0.32165
     #straight: 1.73184
     straight: 1.7885084
@@ -68,7 +68,7 @@ joints:
     max: 3.4292
     tucked: 'min'
   arm_joint_5:
-    length: 0.158
+    length: 0.182
     straight: 2.9234
     goal: 0.0
     min: 0.110619
