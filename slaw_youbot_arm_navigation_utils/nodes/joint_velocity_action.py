@@ -13,7 +13,7 @@ from slaw_youbot_arm_navigation_utils.arm_utils import joint_names, limit_joint_
 LIMIT_OVER_EFFORT = 2
 ARM_MOVING_THRESHOLD = 0.001
 
-THRESHOLD_CARTESIAN_MOVEMENT = 0.005
+THRESHOLD_CARTESIAN_MOVEMENT = 0.002
 
 THRESHOLD_LINEAR_MOVEMENT = 0.01
 THRESHOLD_ANGULAR_MOVEMENT = 0.01
@@ -24,7 +24,8 @@ MAX_SPEED_JOINT_5 = 0.5
 
 
 def cartesian_vel_to_joint_vel(vel, angular_speed, current_configuration, side, horizontal, endlink_angle, endeffector_offset):
-    cur_pos, cur_ang = np.array(forward_kinematics(current_configuration, side, horizontal, endlink_angle, endeffector_offset))
+
+    cur_pos, cur_ang, ret_endlink_angle = np.array(forward_kinematics(current_configuration, side, horizontal, return_endlink_angle=True, endeffector_offset=endeffector_offset))
     cur_point = Point(*cur_pos)
     cur_target_joints = call_ik_solver(cur_point, side, horizontal, endlink_angle, endeffector_offset)
     if cur_target_joints is None:
@@ -132,7 +133,7 @@ class JointVelocityController:
 
     def get_linear_movement_msg(self, target_pose, target_ang, max_speed, side, horizontal=False, endlink_angle=0.0,
                                 endeffector_offset=0.0):
-        cur_pos, cur_ang = forward_kinematics(self.configuration, side, horizontal, endlink_angle, endeffector_offset)
+        cur_pos, cur_ang, ret_endlink_angle = forward_kinematics(self.configuration, side, horizontal, return_endlink_angle=True, endeffector_offset=endeffector_offset)
 
         direction = np.array(target_pose) - np.array(cur_pos)
         angular_speed = (target_ang - cur_ang)
@@ -307,7 +308,7 @@ class JointVelocityController:
         speed = np.array([msg.linear.x, msg.linear.y, msg.linear.z])
         angular_speed = msg.angular.z
         target_speeds = cartesian_vel_to_joint_vel(speed, angular_speed, self.configuration, self.side, self.horizontal,
-                                                   endlink_angle=0.0,
+                                                   endlink_angle=0.1,
                                                    endeffector_offset=0.0)
         print target_speeds
         msg = create_null_velocity(self.unit)

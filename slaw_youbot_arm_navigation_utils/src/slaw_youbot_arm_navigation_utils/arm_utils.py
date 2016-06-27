@@ -6,10 +6,12 @@ from slaw_msgs.msg import BackplatePoseIdentifier
 from slaw_youbot_arm_navigation_srvs.srv import SimpleIkSolver, SimpleIkSolverRequest
 import numpy as np
 
+from slaw_youbot_arm_navigation_utils.ik_solver import calculate_ik_solution, calc_joints_for_point
+
 arm_base_frame = rospy.get_param('arm_base_link', '/arm_base_link')
 arm_rot_offset = rospy.get_param('arm_rot_offset')
 
-iks = rospy.ServiceProxy('/arm_1/simple_ik_server', SimpleIkSolver)
+# iks = rospy.ServiceProxy('/arm_1/simple_ik_server', SimpleIkSolver)
 
 joints = rospy.get_param('joints')
 joint_names = rospy.get_param("joint_names")
@@ -118,19 +120,18 @@ def call_ik_solver(goal_point, side, horizontal=False, endlink_angle=0.0, endeff
     req.endeffector_offset = endeffector_offset
     req.endlink_angle = endlink_angle
     req.horizontal = horizontal
-    resp = None
-    try:
-        resp = iks(req)
-    except rospy.ServiceException, e:
-        rospy.logerr("Service did not process request: %s", str(e))
+    resp = calculate_ik_with_best_endlink_angle(req)
+
     if resp is not None and len(resp.joints) > 0:
         return np.array(resp.joints)
     return None
+
 
 LOWER_CENTER = [0.28, 0, -0.043]
 CENTER = [0.31, 0, -0.045]
 CENTER_ANGLE = [0.0, 0.3, 0.6]
 DROP = [0.37047634135746554, 1.3281082943050848, -1.1753640594875492, 2.965021872122891, 2.7544245448727414]
+
 
 def create_backplate_trajectory(backplate_pose, z_offset=0.0):
     assert isinstance(backplate_pose, BackplatePoseIdentifier)
@@ -138,10 +139,10 @@ def create_backplate_trajectory(backplate_pose, z_offset=0.0):
     if backplate_pose.description == BackplatePoseIdentifier.LOWER_CENTER:
         p = Point(*LOWER_CENTER)
         p.z += z_offset
-        conf = call_ik_solver(p, side='back', endlink_angle=0.00)
-        conf[4] += math.pi/2.
+        conf = call_ik_solver(p, side='back', endlink_angle=0.1)
+        conf[4] += math.pi / 2.
     elif backplate_pose.description == BackplatePoseIdentifier.CENTER:
-        conf = call_ik_solver(Point(*CENTER), side='back', endlink_angle=0.08)
+        conf = call_ik_solver(Point(*CENTER), side='back', endlink_angle=0.1)
     else:
         rospy.logfatal("NOOOOOOOO POSE!!!!")
 
@@ -167,10 +168,12 @@ def create_place_trajectory(x, y, z, obj, side, theta=0.0, last_joint_tolerance_
     place_point.z += z_pre_place
     for i in range(last_joint_tolerance_in_degree):
         ang = math.radians(i)
-        arm_config_pregrasp = call_ik_solver(place_point, side, horizontal=False, endlink_angle=ang, endeffector_offset=0.0)
+        arm_config_pregrasp = call_ik_solver(place_point, side, horizontal=False, endlink_angle=ang,
+                                             endeffector_offset=0.0)
         if arm_config_pregrasp is not None:
             break
-        arm_config_pregrasp = call_ik_solver(place_point, side, horizontal=False, endlink_angle=-ang, endeffector_offset=0.0)
+        arm_config_pregrasp = call_ik_solver(place_point, side, horizontal=False, endlink_angle=-ang,
+                                             endeffector_offset=0.0)
         if arm_config_pregrasp is not None:
             break
 
@@ -183,7 +186,28 @@ def create_place_trajectory(x, y, z, obj, side, theta=0.0, last_joint_tolerance_
     return [arm_config_pregrasp, arm_config]
 
 
-def forward_kinematics(configuration, side, horizontal=False, endlink_angle=0.0, endeffector_offset=0.0):
+def calculate_ik_with_best_endlink_angle(req):
+    assert isinstance(req, SimpleIkSolverRequest)
+    # if not point_stamped.header.frame_id == self.arm_base_link:
+    #     return response
+
+    max_ang = abs(math.degrees(req.endlink_angle))
+    print max_ang
+    for i in range(0, int(math.ceil(max_ang))):
+        ang = math.radians(i)
+        req.endlink_angle = ang
+        arm_config = calculate_ik_solution(req)
+        if arm_config is not None and len(arm_config.joints) > 0:
+            return arm_config
+        req.endlink_angle = -ang
+        arm_config = calculate_ik_solution(req)
+
+        if arm_config is not None and len(arm_config.joints) > 0:
+            return arm_config
+    return None
+
+
+def forward_kinematics(configuration, side, horizontal=False, return_endlink_angle=False, endeffector_offset=0.0):
     last_joint_length = joints['arm_joint_4']['length'] + joints['arm_joint_5']['length'] + endeffector_offset
     len_joint_2 = joints['arm_joint_2']['length']
     len_joint_3 = joints['arm_joint_3']['length']
@@ -194,9 +218,15 @@ def forward_kinematics(configuration, side, horizontal=False, endlink_angle=0.0,
     projected_len_joint_3 = math.cos(angle_j3) * len_joint_3
 
     dist = joints['arm_joint_1']['front_offset'] + projected_len_joint_2 + projected_len_joint_3
+
+    beta = (math.pi / 2.) + angle_j3
     if horizontal:
-        endlink_angle = math.pi / 2.
-    # if horizontal:
+        straight_down_configuration = joints['arm_joint_4']['straight'] - beta
+    else:
+        straight_down_configuration = joints['arm_joint_4']['straight'] + math.pi - beta
+
+    endlink_angle = straight_down_configuration - configuration[3]
+
     dist += math.sin(endlink_angle) * last_joint_length
 
     offset = 0.
@@ -218,7 +248,11 @@ def forward_kinematics(configuration, side, horizontal=False, endlink_angle=0.0,
     z_diff = math.sin(angle_j2) * len_joint_2 - math.sin(angle_j3) * len_joint_3
     z = height_diff + z_diff
     ang = joints['arm_joint_5']['straight'] - configuration[4]
-    if abs(endlink_angle) < math.pi / 8.:  # not horizontal:
+    if abs(endlink_angle) < math.pi / 4.:  # not horizontal:
         ang += rotation_angle
     # print "x, y, z = %.3f, %.3f, %.3f, ang = %.3f, side = %s" % (x, y, z, ang, side)
-    return [x, y, z], ang
+    if return_endlink_angle:
+        return [x, y, z], ang, endlink_angle
+    else:
+        return [x, y, z], ang
+
