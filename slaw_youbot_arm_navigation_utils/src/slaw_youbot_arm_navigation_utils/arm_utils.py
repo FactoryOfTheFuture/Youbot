@@ -191,8 +191,8 @@ def calculate_ik_with_best_endlink_angle(req):
     # if not point_stamped.header.frame_id == self.arm_base_link:
     #     return response
 
-    max_ang = abs(math.degrees(req.endlink_angle))
-    print max_ang
+    max_ang = max(abs(math.degrees(req.endlink_angle)), 1)
+    
     for i in range(0, int(math.ceil(max_ang))):
         ang = math.radians(i)
         req.endlink_angle = ang
