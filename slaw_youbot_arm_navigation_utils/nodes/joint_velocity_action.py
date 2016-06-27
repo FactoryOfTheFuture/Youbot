@@ -308,7 +308,7 @@ class JointVelocityController:
         speed = np.array([msg.linear.x, msg.linear.y, msg.linear.z])
         angular_speed = msg.angular.z
         target_speeds = cartesian_vel_to_joint_vel(speed, angular_speed, self.configuration, self.side, self.horizontal,
-                                                   endlink_angle=0.1,
+                                                   endlink_angle=0.2,
                                                    endeffector_offset=0.0)
         print target_speeds
         msg = create_null_velocity(self.unit)
