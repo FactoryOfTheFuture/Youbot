@@ -133,7 +133,7 @@ class JointVelocityController:
 
     def get_linear_movement_msg(self, target_pose, target_ang, max_speed, side, horizontal=False, endlink_angle=0.0,
                                 endeffector_offset=0.0):
-        cur_pos, cur_ang, ret_endlink_angle = forward_kinematics(self.configuration, side, horizontal, return_endlink_angle=True, endeffector_offset=endeffector_offset)
+        cur_pos, cur_ang = forward_kinematics(self.configuration, side, horizontal, return_endlink_angle=False, endeffector_offset=endeffector_offset)
 
         direction = np.array(target_pose) - np.array(cur_pos)
         angular_speed = (target_ang - cur_ang)

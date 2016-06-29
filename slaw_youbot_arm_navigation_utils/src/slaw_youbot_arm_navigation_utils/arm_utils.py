@@ -220,10 +220,7 @@ def forward_kinematics(configuration, side, horizontal=False, return_endlink_ang
     dist = joints['arm_joint_1']['front_offset'] + projected_len_joint_2 + projected_len_joint_3
 
     beta = (math.pi / 2.) + angle_j3
-    if horizontal:
-        straight_down_configuration = joints['arm_joint_4']['straight'] - beta
-    else:
-        straight_down_configuration = joints['arm_joint_4']['straight'] + math.pi - beta
+    straight_down_configuration = joints['arm_joint_4']['straight'] + math.pi - beta
 
     endlink_angle = straight_down_configuration - configuration[3]
 
@@ -245,11 +242,16 @@ def forward_kinematics(configuration, side, horizontal=False, return_endlink_ang
     # if not horizontal:
     height_diff -= math.cos(endlink_angle) * last_joint_length
 
+
     z_diff = math.sin(angle_j2) * len_joint_2 - math.sin(angle_j3) * len_joint_3
     z = height_diff + z_diff
     ang = joints['arm_joint_5']['straight'] - configuration[4]
     if abs(endlink_angle) < math.pi / 4.:  # not horizontal:
         ang += rotation_angle
+
+    if horizontal:
+        endlink_angle -= math.pi / 2.
+
     # print "x, y, z = %.3f, %.3f, %.3f, ang = %.3f, side = %s" % (x, y, z, ang, side)
     if return_endlink_angle:
         return [x, y, z], ang, endlink_angle
