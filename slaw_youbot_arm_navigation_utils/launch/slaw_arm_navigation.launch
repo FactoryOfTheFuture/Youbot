@@ -5,6 +5,8 @@
 
     <rosparam file="$(find slaw_youbot_arm_navigation_utils)/config/joints_configuration.yaml" command="load" />
 
+    <rosparam file="$(find slaw_definitions_robocup)/config/robocup_object_definitions.yaml" command="load" />
+
     <node pkg='slaw_youbot_arm_navigation_utils' type='youbot_simple_ik_server.py' name='ik_service' output='screen' />
 
     <!-- Include gripper launch-->
