@@ -13,7 +13,7 @@
     <node pkg='slaw_youbot_arm_navigation_utils' type='youbot_simple_ik_server.py' name='ik_service' output='screen' />
 
     <node pkg='slaw_youbot_arm_navigation_utils' type='arm_mockup.py' name='arm_mockup' output='screen' />
-    <!-- <node pkg='rviz' type='rviz' name='rviz' args="-d $(find slaw_youbot_arm_navigation_utils)/youbot_arm.rviz" output='screen' /> -->
+    <node pkg='rviz' type='rviz' name='rviz' args="-d $(find slaw_youbot_arm_navigation_utils)/youbot_arm.rviz" output='screen' />
 
 
 </launch>
