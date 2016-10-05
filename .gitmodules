@@ -1,3 +1,6 @@
 [submodule "slaw_youbot_arm_navigation"]
 	path = slaw_youbot_arm_navigation
 	url = https://github.com/FactoryOfTheFuture/slaw_youbot_arm_navigation.git
+[submodule "youbot_description"]
+	path = youbot_description
+	url = https://github.com/FactoryOfTheFuture/youbot_description.git
