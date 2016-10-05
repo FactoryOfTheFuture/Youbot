@@ -1,6 +1,7 @@
+<?xml version="1.0"?>
 <launch>
-
-<arg name="sim" default="false"/>
+<!-- define argument, use example: roslaunch .... bringup.launch sim:=true -->
+	<arg name="sim" default="false"/>
     	
 <!-- startup the youbot driver ros interface -->
 	<group unless="$(arg sim)">
@@ -8,12 +9,15 @@
 	</group>
 
 <!-- load the robot description file -->
-<param name="robot_description" command="$(find xacro)/xacro.py $(find youbot_description)/robots/youbot.urdf.xacro"/>
+	<param name="robot_description" command="$(find xacro)/xacro.py $(find youbot_description)/robots/youbot.urdf.xacro"/>
 
 <!-- startup the IK -->
  <!-- fake arm with rviz, load the robot description file -->
         <group if="$(arg sim)">
 	<!-- start robot_state_publisher assuming /joint_states is the default topic -->
+		<!-- launch joint state controller -->
+  		<include file="$(find youbot_gazebo_control)/launch/joint_state_controller.launch" />
+
 		<node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" output="screen"/>
 
     		<include file="$(find slaw_youbot_arm_navigation_utils)/launch/joint_trajectory_action.launch" />
