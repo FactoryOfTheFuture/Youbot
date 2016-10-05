@@ -2,7 +2,7 @@ import rospy
 import math
 from brics_actuator.msg import JointVelocities, JointValue
 from geometry_msgs.msg import PointStamped, Point
-from slaw_msgs.msg import BackplatePoseIdentifier
+#from slaw_msgs.msg import BackplatePoseIdentifier
 from slaw_youbot_arm_navigation_srvs.srv import SimpleIkSolver, SimpleIkSolverRequest
 import numpy as np
 
