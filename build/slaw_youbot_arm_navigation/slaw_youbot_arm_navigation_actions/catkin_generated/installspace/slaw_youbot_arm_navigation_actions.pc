@@ -1,8 +1,0 @@
-prefix=/home/ruud/youBot/install
-
-Name: slaw_youbot_arm_navigation_actions
-Description: Description of slaw_youbot_arm_navigation_actions
-Version: 1.0.0
-Cflags: -I/home/ruud/youBot/install/include
-Libs: -L/home/ruud/youBot/install/lib 
-Requires: actionlib actionlib_msgs message_runtime slaw_youbot_arm_navigation_msgs

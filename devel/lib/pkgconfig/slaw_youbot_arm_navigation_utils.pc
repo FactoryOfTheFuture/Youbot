@@ -1,8 +1,0 @@
-prefix=/home/ruud/youBot/devel
-
-Name: slaw_youbot_arm_navigation_utils
-Description: Description of slaw_youbot_arm_navigation_utils
-Version: 1.0.0
-Cflags: 
-Libs: -L/home/ruud/youBot/devel/lib 
-Requires: 
