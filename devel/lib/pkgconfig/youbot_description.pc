@@ -1,0 +1,8 @@
+prefix=/home/ruud/youBot/devel
+
+Name: youbot_description
+Description: Description of youbot_description
+Version: 0.8.0
+Cflags: 
+Libs: -L/home/ruud/youBot/devel/lib 
+Requires: 

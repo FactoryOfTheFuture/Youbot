@@ -35,10 +35,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/youbot/catkin_ws/src
+CMAKE_SOURCE_DIR = /home/ruud/youBot/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/youbot/catkin_ws/build
+CMAKE_BINARY_DIR = /home/ruud/youBot/build
 
 # Utility rule file for clean_test_results.
 
@@ -46,7 +46,7 @@ CMAKE_BINARY_DIR = /home/youbot/catkin_ws/build
 include CMakeFiles/clean_test_results.dir/progress.make
 
 CMakeFiles/clean_test_results:
-	/usr/bin/python /opt/ros/indigo/share/catkin/cmake/test/remove_test_results.py /home/youbot/catkin_ws/build/test_results
+	/usr/bin/python /opt/ros/indigo/share/catkin/cmake/test/remove_test_results.py /home/ruud/youBot/build/test_results
 
 clean_test_results: CMakeFiles/clean_test_results
 clean_test_results: CMakeFiles/clean_test_results.dir/build.make
@@ -61,6 +61,6 @@ CMakeFiles/clean_test_results.dir/clean:
 .PHONY : CMakeFiles/clean_test_results.dir/clean
 
 CMakeFiles/clean_test_results.dir/depend:
-	cd /home/youbot/catkin_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/youbot/catkin_ws/src /home/youbot/catkin_ws/src /home/youbot/catkin_ws/build /home/youbot/catkin_ws/build /home/youbot/catkin_ws/build/CMakeFiles/clean_test_results.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/ruud/youBot/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ruud/youBot/src /home/ruud/youBot/src /home/ruud/youBot/build /home/ruud/youBot/build /home/ruud/youBot/build/CMakeFiles/clean_test_results.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/clean_test_results.dir/depend
 

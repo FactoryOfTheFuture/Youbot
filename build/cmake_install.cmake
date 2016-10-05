@@ -1,8 +1,8 @@
-# Install script for directory: /home/youbot/catkin_ws/src
+# Install script for directory: /home/ruud/youBot/src
 
 # Set the install prefix
 IF(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  SET(CMAKE_INSTALL_PREFIX "/home/youbot/catkin_ws/install")
+  SET(CMAKE_INSTALL_PREFIX "/home/ruud/youBot/install")
 ENDIF(NOT DEFINED CMAKE_INSTALL_PREFIX)
 STRING(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -44,79 +44,89 @@ ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unsp
 
 IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
   list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-   "/home/youbot/catkin_ws/install/_setup_util.py")
+   "/home/ruud/youBot/install/_setup_util.py")
   IF (CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   ENDIF (CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
   IF (CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   ENDIF (CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
-FILE(INSTALL DESTINATION "/home/youbot/catkin_ws/install" TYPE PROGRAM FILES "/home/youbot/catkin_ws/build/catkin_generated/installspace/_setup_util.py")
+FILE(INSTALL DESTINATION "/home/ruud/youBot/install" TYPE PROGRAM FILES "/home/ruud/youBot/build/catkin_generated/installspace/_setup_util.py")
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 
 IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
   list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-   "/home/youbot/catkin_ws/install/env.sh")
+   "/home/ruud/youBot/install/env.sh")
   IF (CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   ENDIF (CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
   IF (CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   ENDIF (CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
-FILE(INSTALL DESTINATION "/home/youbot/catkin_ws/install" TYPE PROGRAM FILES "/home/youbot/catkin_ws/build/catkin_generated/installspace/env.sh")
+FILE(INSTALL DESTINATION "/home/ruud/youBot/install" TYPE PROGRAM FILES "/home/ruud/youBot/build/catkin_generated/installspace/env.sh")
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 
 IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
   list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-   "/home/youbot/catkin_ws/install/setup.bash")
+   "/home/ruud/youBot/install/setup.bash")
   IF (CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   ENDIF (CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
   IF (CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   ENDIF (CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
-FILE(INSTALL DESTINATION "/home/youbot/catkin_ws/install" TYPE FILE FILES "/home/youbot/catkin_ws/build/catkin_generated/installspace/setup.bash")
+FILE(INSTALL DESTINATION "/home/ruud/youBot/install" TYPE FILE FILES "/home/ruud/youBot/build/catkin_generated/installspace/setup.bash")
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 
 IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
   list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-   "/home/youbot/catkin_ws/install/setup.sh")
+   "/home/ruud/youBot/install/setup.sh")
   IF (CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   ENDIF (CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
   IF (CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   ENDIF (CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
-FILE(INSTALL DESTINATION "/home/youbot/catkin_ws/install" TYPE FILE FILES "/home/youbot/catkin_ws/build/catkin_generated/installspace/setup.sh")
+FILE(INSTALL DESTINATION "/home/ruud/youBot/install" TYPE FILE FILES "/home/ruud/youBot/build/catkin_generated/installspace/setup.sh")
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 
 IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
   list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-   "/home/youbot/catkin_ws/install/setup.zsh")
+   "/home/ruud/youBot/install/setup.zsh")
   IF (CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   ENDIF (CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
   IF (CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   ENDIF (CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
-FILE(INSTALL DESTINATION "/home/youbot/catkin_ws/install" TYPE FILE FILES "/home/youbot/catkin_ws/build/catkin_generated/installspace/setup.zsh")
+FILE(INSTALL DESTINATION "/home/ruud/youBot/install" TYPE FILE FILES "/home/ruud/youBot/build/catkin_generated/installspace/setup.zsh")
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 
 IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
   list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-   "/home/youbot/catkin_ws/install/.rosinstall")
+   "/home/ruud/youBot/install/.rosinstall")
   IF (CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   ENDIF (CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
   IF (CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   ENDIF (CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
-FILE(INSTALL DESTINATION "/home/youbot/catkin_ws/install" TYPE FILE FILES "/home/youbot/catkin_ws/build/catkin_generated/installspace/.rosinstall")
+FILE(INSTALL DESTINATION "/home/ruud/youBot/install" TYPE FILE FILES "/home/ruud/youBot/build/catkin_generated/installspace/.rosinstall")
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 
 IF(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  INCLUDE("/home/youbot/catkin_ws/build/gtest/cmake_install.cmake")
+  INCLUDE("/home/ruud/youBot/build/gtest/cmake_install.cmake")
+  INCLUDE("/home/ruud/youBot/build/slaw_youbot_arm_navigation/slaw_youbot_arm_navigation/cmake_install.cmake")
+  INCLUDE("/home/ruud/youBot/build/slaw_youbot_arm_navigation/slaw_youbot_arm_navigation_utils/cmake_install.cmake")
+  INCLUDE("/home/ruud/youBot/build/slaw_youbot_arm_navigation/slaw_youbot_arm_navigation_msgs/cmake_install.cmake")
+  INCLUDE("/home/ruud/youBot/build/slaw_youbot_arm_navigation/slaw_youbot_arm_navigation_srvs/cmake_install.cmake")
+  INCLUDE("/home/ruud/youBot/build/slaw_youbot_arm_navigation/slaw_youbot_arm_navigation_actions/cmake_install.cmake")
+  INCLUDE("/home/ruud/youBot/build/youbot_description/cmake_install.cmake")
+  INCLUDE("/home/ruud/youBot/build/youbot_simulation/youbot_gazebo_control/cmake_install.cmake")
+  INCLUDE("/home/ruud/youBot/build/youbot_simulation/youbot_gazebo_robot/cmake_install.cmake")
+  INCLUDE("/home/ruud/youBot/build/youbot_simulation/youbot_gazebo_worlds/cmake_install.cmake")
+  INCLUDE("/home/ruud/youBot/build/youbot_simulation/youbot_simulation/cmake_install.cmake")
 
 ENDIF(NOT CMAKE_INSTALL_LOCAL_ONLY)
 
@@ -126,7 +136,7 @@ ELSE(CMAKE_INSTALL_COMPONENT)
   SET(CMAKE_INSTALL_MANIFEST "install_manifest.txt")
 ENDIF(CMAKE_INSTALL_COMPONENT)
 
-FILE(WRITE "/home/youbot/catkin_ws/build/${CMAKE_INSTALL_MANIFEST}" "")
+FILE(WRITE "/home/ruud/youBot/build/${CMAKE_INSTALL_MANIFEST}" "")
 FOREACH(file ${CMAKE_INSTALL_MANIFEST_FILES})
-  FILE(APPEND "/home/youbot/catkin_ws/build/${CMAKE_INSTALL_MANIFEST}" "${file}\n")
+  FILE(APPEND "/home/ruud/youBot/build/${CMAKE_INSTALL_MANIFEST}" "${file}\n")
 ENDFOREACH(file)

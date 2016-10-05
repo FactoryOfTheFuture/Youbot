@@ -12,16 +12,16 @@ try:
     from catkin.environment_cache import generate_environment_script
 except ImportError:
     # search for catkin package in all workspaces and prepend to path
-    for workspace in "/opt/ros/indigo".split(';'):
+    for workspace in "/home/ruud/youBot/devel;/opt/ros/indigo".split(';'):
         python_path = os.path.join(workspace, 'lib/python2.7/dist-packages')
         if os.path.isdir(os.path.join(python_path, 'catkin')):
             sys.path.insert(0, python_path)
             break
     from catkin.environment_cache import generate_environment_script
 
-code = generate_environment_script('/home/youbot/catkin_ws/devel/env.sh')
+code = generate_environment_script('/home/ruud/youBot/devel/env.sh')
 
-output_filename = '/home/youbot/catkin_ws/build/catkin_generated/setup_cached.sh'
+output_filename = '/home/ruud/youBot/build/catkin_generated/setup_cached.sh'
 with open(output_filename, 'w') as f:
     #print('Generate script for cached setup "%s"' % output_filename)
     f.write('\n'.join(code))

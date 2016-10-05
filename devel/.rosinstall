@@ -1,2 +1,2 @@
 - setup-file:
-    local-name: /home/youbot/catkin_ws/devel/setup.sh
+    local-name: /home/ruud/youBot/devel/setup.sh

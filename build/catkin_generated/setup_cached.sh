@@ -7,7 +7,6 @@
 # new environment variables
 
 # modified environment variables
-export CMAKE_PREFIX_PATH="/home/youbot/catkin_ws/devel:$CMAKE_PREFIX_PATH"
-export PWD="/home/youbot/catkin_ws/build"
-export ROSLISP_PACKAGE_DIRECTORIES="/home/youbot/catkin_ws/devel/share/common-lisp"
-export ROS_PACKAGE_PATH="/home/youbot/catkin_ws/src:$ROS_PACKAGE_PATH"
+export LD_LIBRARY_PATH="/home/ruud/youBot/devel/lib:$LD_LIBRARY_PATH"
+export PWD="/home/ruud/youBot/build"
+export ROS_PACKAGE_PATH="/home/youbot/catkin_ws/src:/home/ruud/youBot/src:/opt/ros/indigo/share:/opt/ros/indigo/stacks"

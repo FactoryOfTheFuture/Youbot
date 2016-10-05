@@ -1,0 +1,6 @@
+slaw_youbot_arm_navigation_msgs/ArmConfiguration[] configurations
+float32 max_speed
+---
+bool success
+string reason
+---

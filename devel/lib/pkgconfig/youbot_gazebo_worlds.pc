@@ -1,0 +1,8 @@
+prefix=/home/ruud/youBot/devel
+
+Name: youbot_gazebo_worlds
+Description: Description of youbot_gazebo_worlds
+Version: 0.8.0
+Cflags: 
+Libs: -L/home/ruud/youBot/devel/lib 
+Requires: 

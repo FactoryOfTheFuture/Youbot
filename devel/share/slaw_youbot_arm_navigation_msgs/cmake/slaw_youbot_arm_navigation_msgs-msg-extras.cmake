@@ -1,0 +1,2 @@
+set(slaw_youbot_arm_navigation_msgs_MESSAGE_FILES "/home/ruud/youBot/src/slaw_youbot_arm_navigation/slaw_youbot_arm_navigation_msgs/msg/ArmConfiguration.msg;/home/ruud/youBot/src/slaw_youbot_arm_navigation/slaw_youbot_arm_navigation_msgs/msg/EndeffectorPosition.msg")
+set(slaw_youbot_arm_navigation_msgs_SERVICE_FILES "")

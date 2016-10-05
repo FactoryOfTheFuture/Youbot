@@ -1,0 +1,6 @@
+set(slaw_youbot_arm_navigation_utils_SETUP_PY_VERSION "1.0.0")
+set(slaw_youbot_arm_navigation_utils_SETUP_PY_SCRIPTS "")
+set(slaw_youbot_arm_navigation_utils_SETUP_PY_PACKAGES "slaw_youbot_arm_navigation_utils")
+set(slaw_youbot_arm_navigation_utils_SETUP_PY_PACKAGE_DIRS "src/slaw_youbot_arm_navigation_utils")
+set(slaw_youbot_arm_navigation_utils_SETUP_PY_MODULES "")
+set(slaw_youbot_arm_navigation_utils_SETUP_PY_MODULE_DIRS "")
