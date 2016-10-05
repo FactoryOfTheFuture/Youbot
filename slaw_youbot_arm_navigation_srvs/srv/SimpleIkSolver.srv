@@ -1,7 +1,0 @@
-geometry_msgs/PointStamped point
-float32 endeffector_offset
-float32 endlink_angle
-string position
-bool horizontal
----
-float64[] joints

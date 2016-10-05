@@ -1,7 +1,0 @@
-slaw_youbot_arm_navigation_msgs/ArmConfiguration configuration
-bool blocking
-bool velocity_controlled
-float32 max_speed
----
-bool success
-string reason
