@@ -1,3 +1,3 @@
 [submodule "slaw_youbot_arm_navigation"]
 	path = slaw_youbot_arm_navigation
-	url = https://github.com/smARTLab-liv/slaw_youbot_arm_navigation.git
+	url = https://github.com/FactoryOfTheFuture/slaw_youbot_arm_navigation.git
