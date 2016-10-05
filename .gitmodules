@@ -4,3 +4,6 @@
 [submodule "youbot_description"]
 	path = youbot_description
 	url = https://github.com/FactoryOfTheFuture/youbot_description.git
+[submodule "youbot_simulation"]
+	path = youbot_simulation
+	url = https://github.com/FactoryOfTheFuture/youbot_simulation.git
