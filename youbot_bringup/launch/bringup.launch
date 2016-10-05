@@ -1,0 +1,39 @@
+<launch>
+
+<arg name="sim" default="false"/>
+    	
+<!-- startup the youbot driver ros interface -->
+	<group unless="$(arg sim)">
+    		<include file="$(find youbot_driver_ros_interface)/launch/youbot_driver.launch" />
+	</group>
+
+<!-- load the robot description file -->
+<param name="robot_description" command="$(find xacro)/xacro.py $(find youbot_description)/robots/youbot.urdf.xacro"/>
+
+<!-- startup the IK -->
+ <!-- fake arm with rviz, load the robot description file -->
+        <group if="$(arg sim)">
+	<!-- start robot_state_publisher assuming /joint_states is the default topic -->
+		<node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" output="screen"/>
+
+    		<include file="$(find slaw_youbot_arm_navigation_utils)/launch/joint_trajectory_action.launch" />
+    		<node pkg='slaw_youbot_arm_navigation_utils' type='youbot_arm_server.py' name='youbot_arm_server' output="screen" />
+
+    		<rosparam file="$(find slaw_youbot_arm_navigation_utils)/config/joints_configuration.yaml" command="load" />
+    		<node pkg='slaw_youbot_arm_navigation_utils' type='youbot_simple_ik_server.py' name='ik_service' output='screen' />
+
+    		<node pkg='slaw_youbot_arm_navigation_utils' type='arm_mockup.py' name='arm_mockup' output='screen' />
+		<node pkg='rviz' type='rviz' name='rviz' args="" output='screen' />
+        </group>
+
+ <!-- slaw arm navigation -->
+	<group unless="$(arg sim)">
+		<include file="$(find slaw_youbot_arm_navigation)/launch/slaw_arm_navigation.launch" />
+	</group>
+
+<!-- load the urdf robot model -->
+
+
+
+
+</launch>

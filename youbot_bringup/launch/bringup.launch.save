@@ -1,0 +1,23 @@
+<launch>
+    <!-- startup the youbot ros interface -->
+    <include file="$(find youbot_driver_ros_interface)/launch/youbot_driver.launch" />
+    
+<launch>
+
+    <include file="$(find slaw_bringup)/launch/startup_drivers.launch" />
+
+    <include file="$(find slaw_bringup)/launch/ps3.launch" />
+
+    <include file="$(find slaw_bringup)/launch/hokuyo.launch" />
+
+    <include file="$(find slaw_twist_mixer)/launch/twist_mixer.launch" />
+
+    <include file="$(find slaw_diagnostics)/launch/diagnostics.launch" />
+
+    <include file="$(find slaw_location_service)/launch/location_service.launch" />
+
+
+    <!-- <include file="$(find slaw_vision)/launch/usb_cam.launch" /> -->
+    
+</launch>
+</launch>
