@@ -1,0 +1,12 @@
+geometry_msgs/Point position
+float32 angle
+bool velocity_controlled
+string side
+float32 endlink_angle
+bool horizontal
+bool blocking
+float32 endeffector_offset
+float32 max_speed
+---
+bool success
+string reason
