@@ -4,7 +4,7 @@
        xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
        xmlns:xacro="http://ros.org/wiki/xacro">
 
-	<xacro:macro name="YouBot_Assembly_URDF" params="parent name *origin">
+	<xacro:macro name="YouBot_Assembly" params="parent name *origin">
 	
 		<joint name="${name}_joint" type="fixed" >
 			<insert_block name="origin" />
@@ -26,7 +26,7 @@
 			</inertial>
     
 			<visual>
-				<origin xyz="1.5707963267949 0 0" rpy="0 0 0" />
+				<origin xyz="0 0 0" rpy="1.5707963267949 0 3.14" />
 				<geometry>
 					<mesh filename="package://youbot_description/meshes/YouBot_Assembly/YouBot_Assembly.STL" />
 				</geometry>
@@ -34,7 +34,7 @@
 			</visual>
     
 			<collision>
-				<origin xyz="0 0 0" rpy="1.5707963267949 0 0" />
+				<origin xyz="0 0 0" rpy="1.5707963267949 0 3.14" />
 				<geometry>
 					<mesh filename="package://youbot_description/meshes/YouBot_Assembly/YouBot_Assembly.STL" />
 				</geometry>

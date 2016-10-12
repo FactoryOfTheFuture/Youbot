@@ -15,8 +15,8 @@
   <!-- youbot plate -->
   <!--xacro:include filename="$(find youbot_description)/urdf/youbot_plate/plate.urdf.xacro" /--> 
 
-  <!-- youbot plate V2 -->
-  <xacro:include filename="$(find youbot_description)/urdf/youbot_plateV2/plateV2.urdf.xacro" /> 
+  <!-- youbot assembly -->
+  <xacro:include filename="$(find youbot_description)/urdf/YouBot_Assembly/YouBot_Assembly.urdf.xacro" /> 
 
   <!-- youbot arm -->
   <xacro:include filename="$(find youbot_description)/urdf/youbot_arm/arm.urdf.xacro"/>
@@ -46,12 +46,12 @@
   <!-- foot for arm-->
   <xacro:youbot_base name="base"/>
 
-  <xacro:youbot_plateV2 name="youbot_plateV2" parent="base_link">
-    <origin xyz="0 0 0.06" rpy="1.5707963267949 0 0" />
-  </xacro:youbot_plateV2>
+  <xacro:YouBot_Assembly name="YouBot_Assembly" parent="base_link">
+    <origin xyz="0 0 -0.093" rpy="0 0 0" />
+  </xacro:YouBot_Assembly>
 
   <xacro:youbot_arm name="arm" parent="base_link">
-    <origin xyz="0.2 0.08 0.1" rpy="0 0 1.5707963267949" />
+    <origin xyz="0.2 0.09 0.093" rpy="0 0 1.5707963267949" />
   </xacro:youbot_arm>
 
   <xacro:youbot_gripper name="gripper" parent="arm_link_5">
@@ -59,8 +59,13 @@
   </xacro:youbot_gripper>
 
   <!-- base laser front -->
-  <xacro:hokuyo_urg04_laser name="base_laser_front" parent="base" ros_topic="scan_front" update_rate="10" min_angle="-1.57" max_angle="1.57">
-    <origin xyz="0.3 0 -0.03" rpy="0 0 0"/>
+  <xacro:hokuyo_urg04_laser name="base_laser_front" parent="base" ros_topic="scan_front" update_rate="10" min_angle="-2.35" max_angle="2.35">
+    <origin xyz="0.25 -0.15 0.06" rpy="3.14 0 0.785398163397448"/>
+  </xacro:hokuyo_urg04_laser>
+
+ <!-- base laser back -->
+  <xacro:hokuyo_urg04_laser name="base_laser_back" parent="base" ros_topic="scan_front" update_rate="10" min_angle="-2.35" max_angle="2.35">
+    <origin xyz="-0.25 0.15 0.06" rpy="3.14 0 -0.785398163397448"/>
   </xacro:hokuyo_urg04_laser>
 
   
