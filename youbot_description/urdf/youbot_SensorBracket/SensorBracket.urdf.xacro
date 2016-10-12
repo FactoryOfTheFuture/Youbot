@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<robot xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor"
+       xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
+       xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
+       xmlns:xacro="http://ros.org/wiki/xacro">
+
+	<xacro:macro name="SensorBracket" params="parent name *origin">
+	
+		<joint name="${name}_joint" type="fixed" >
+			<insert_block name="origin" />
+			<parent link="${parent}" />
+			<child link="${name}_link" />
+		</joint>
+
+		<link name="${name}_link">
+			<inertial>
+				<origin xyz="9.1209E-19 0.010757 -0.000504290000000001" rpy="0 0 0" />
+				<mass value="0.031034" />
+				<inertia 
+				  ixx="9.53384819914049E-06"
+				  ixy="-3.38397542237065E-21"
+				  ixz="3.3323030753579E-21"
+				  iyy="-1.80575300021361E-08"
+				  iyz="-3.34843403651602E-05"
+				  izz="1.80575300021401E-08" />
+			</inertial>
+
+		<visual>
+			<origin xyz="1.5707963267949 0 0" rpy="0 0 0" />
+			<geometry>
+				<mesh filename="package://youbot_description/meshes/youbot_SensorBracket/youbot_SensorBracket.STL" />
+			</geometry>
+			<material name="Orange"/>
+		</visual>
+			
+		<collision>
+			<origin xyz="0 0 0" rpy="1.5707963267949 0 0" />
+			<geometry>
+				<mesh filename="package://youbot_description/meshes/youbot_SensorBracket/youbot_SensorBracket.STL" />
+			</geometry>
+		</collision>
+	</link>
+
+	<!-- extensions -->
+		
+	
+	</xacro:macro>
+
+</robot>			
+
+
+			

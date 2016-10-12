@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<robot xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor"
+       xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
+       xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
+       xmlns:xacro="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
+       name="youbot" >
+
+  <!-- youbot arm -->
+  <xacro:include filename="$(find youbot_description)/urdf/youbot_arm/arm.urdf.xacro"/>
+
+  <link name="/base_link" />
+
+  
+  <xacro:youbot_arm name="arm" parent="/base_link">
+    <!-- <origin xyz="0.143 0 0.046" rpy="0 0 0" /> -->
+    <origin xyz="0 0 0" rpy="0 0 -${M_PI/4}" />
+  </xacro:youbot_arm>
+
+
+  <link name="arm_base_link" >
+    <origin xyz="0 0 0" rpy="0 0 0" />
+  </link>
+
+  <joint name="arm_base_fixed_joint" type='fixed'>-->
+    <origin xyz="0.024 0 -0.0315" rpy="0 0 0" />
+    <parent link="arm_link_0"/>
+    <child link="arm_base_link" />
+  </joint>
+
+  <link name="side_arm_link" >
+    <origin xyz="0 0 0" rpy="0 0 0" />
+  </link>
+
+  <!---->
+  <joint name="side_joint" type='revolute'>-->
+    <origin xyz="0 0 0" rpy="0 0 ${M_PI/4}" />
+    <parent link="arm_base_link"/>
+    <child link="side_arm_link" />
+    <limit effort="0" velocity="0.0" lower="0" upper="-${M_PI/2}" />
+    <axis xyz="0 0 1"/>
+  </joint>
+
+  <link name="side_link" >
+    <origin xyz="0 0 0" rpy="0 0 0" />
+  </link>
+  <joint name="side_joint_fixed" type='fixed'>-->
+    <origin xyz="0.0 0 0" rpy="0 0 0" />
+    <parent link="side_arm_link"/>
+    <child link="side_link" />
+  </joint>
+
+  <realsense_camera parent="arm_link_5">
+    <origin xyz="0.057 0 0.008" rpy="0 0 0" />
+  </realsense_camera>
+
+  <gripper_camera_fixed parent="arm_link_5" name="gripper_base_fixed">
+    <origin xyz="0.0027 0 -0.0075" rpy="0 0 0" />
+  </gripper_camera_fixed>
+
+  <link name="arm_endeffector_link" >
+    <origin xyz="0 0 0" rpy="0 0 0" />
+  </link>
+
+  <joint name="arm_endeffector_joint" type='fixed'>-->
+    <origin xyz="0. 0 0.18" rpy="0 0 0" />
+    <parent link="arm_link_5"/>
+    <child link="arm_endeffector_link" />
+  </joint>
+
+
+</robot>

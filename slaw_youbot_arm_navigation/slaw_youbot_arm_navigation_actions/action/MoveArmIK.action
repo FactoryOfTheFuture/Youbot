@@ -1,0 +1,15 @@
+#goal
+geometry_msgs/Point position
+float32 angle
+string side
+bool velocity_controlled
+float32 endlink_angle
+bool horizontal
+float32 endeffector_offset
+float32 max_speed
+---
+#result
+bool success
+string reason
+---
+#feedback

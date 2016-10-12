@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<robot xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor"
+       xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
+       xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
+       xmlns:xacro="http://ros.org/wiki/xacro">
+
+	<xacro:macro name="youbot_plateV2" params="parent name *origin">
+
+		<joint name="${name}_joint" type="fixed" >
+			<insert_block name="origin" />
+			<parent link="${parent}" />
+			<child link="${name}_link" />
+		</joint>
+
+		<link name="${name}_link">
+			<inertial>
+				<origin xyz="0 0 0" rpy="0 0 0"/>
+				<mass value="2.8758"/>
+				<inertia ixx="0.03" ixy="0" ixz="0" iyy="0.00" iyz="0" izz="0.00" />
+			</inertial>
+			
+			<visual>
+				<origin xyz="0 0 0" rpy="0 0 0" />
+				<geometry>
+					<mesh filename="package://youbot_description/meshes/youbot_plateV2/youbot_plateV2.stl" />
+				</geometry>
+				<material name="DarkGrey"/>
+			</visual>
+			
+			<collision>
+				<origin xyz="0 0 0" rpy="0 0 0" />
+				<geometry>
+					<mesh filename="package://youbot_description/meshes/youbot_plateV2/youbot_plateV2.stl" />
+				</geometry>
+			</collision>
+		</link>
+
+		<!-- extensions -->
+		
+	
+	</xacro:macro>
+
+</robot>
+
+

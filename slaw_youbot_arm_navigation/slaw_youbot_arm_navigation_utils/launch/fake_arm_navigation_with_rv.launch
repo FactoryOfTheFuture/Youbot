@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- load the robot description file -->
+	<param name="robot_description" command="$(find xacro)/xacro.py '$(find slaw_youbot_arm_navigation_utils)/description/youbot.urdf.xacro'"/>
+
+	<!-- start robot_state_publisher assuming /joint_states is the default topic -->
+	<node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" output="screen"/>
+
+    <include file="$(find slaw_youbot_arm_navigation_utils)/launch/joint_trajectory_action.launch" />
+    <node pkg='slaw_youbot_arm_navigation_utils' type='youbot_arm_server.py' name='youbot_arm_server' output="screen" />
+
+    <rosparam file="$(find slaw_youbot_arm_navigation_utils)/config/joints_configuration.yaml" command="load" />
+    <node pkg='slaw_youbot_arm_navigation_utils' type='youbot_simple_ik_server.py' name='ik_service' output='screen' />
+
+    <node pkg='slaw_youbot_arm_navigation_utils' type='arm_mockup.py' name='arm_mockup' output='screen' />
+    <node pkg='rviz' type='rviz' name='rviz' args="-d $(find slaw_youbot_arm_navigation_utils)/youbot_arm.rviz" output='screen' />
+
+
+</launch>
