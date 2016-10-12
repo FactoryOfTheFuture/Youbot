@@ -2,24 +2,31 @@
 <launch>
 <!-- define argument, use example: roslaunch .... bringup.launch sim:=true -->
 	<arg name="sim" default="true"/>
- 
-<!-- simulation -->
-<group if="$(arg sim)">
+	<arg name="arm" default="true"/>
+	<arg name="laser" default="false"/>
+	<!-- visual = start rviz -->
+	<arg name="visual" default="true"/>
+	<arg name="rvizconfig" default="$(find youbot_bringup)/rviz/urdf.rviz" />
+
 <!-- load the robot description file -->
-	<param name="robot_description" command="$(find xacro)/xacro.py $(find youbot_description)/robots/youbot.urdf.xacro"/>
+	<param name="robot_description" command="$(find xacro)/xacro.py $(find youbot_description)/robots/youbot.urdf.xacro" />
 
-  	<node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
-  	</node>
+<!-- start publishers -->
+<group if="$(arg sim)">
+  	<node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" />
+	<node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+</group>
 
- <arg name="world" default="robocup_at_work_2012"/>
+<group if="$(arg sim)">
+  <arg name="world" default="robocup_at_work_2012"/>
   <arg name="init_pos_x" default="0.0"/>
   <arg name="init_pos_y" default="0.0"/>
   <arg name="init_pos_z" default="0.0"/>
 
- <!-- launch world -->
+<!-- launch world -->
   <include file="$(find youbot_gazebo_worlds)/launch/$(arg world).launch" />
 
-<node pkg="gazebo_ros" type="spawn_model" name="spawn_robot" respawn="false" output="screen"
+  <node pkg="gazebo_ros" type="spawn_model" name="spawn_robot" respawn="false" output="screen"
     args="-param robot_description
           -urdf
           -x $(arg init_pos_x)
@@ -31,38 +38,57 @@
   <!-- launch joint state controller -->
   <include file="$(find youbot_gazebo_control)/launch/joint_state_controller.launch" />
 
+  <!-- launch arm and gripper controller -->
+  <include file="$(find youbot_gazebo_control)/launch/arm_controller.launch" />
+
 
 </group>
 
-<!-- startup the youbot driver ros interface -->
+<!-- startup the youbot driver ros interface, only when NOT in simulation -->
 <group unless="$(arg sim)">
-    		<include file="$(find youbot_driver_ros_interface)/launch/youbot_driver.launch" />
+	<include file="$(find youbot_driver_ros_interface)/launch/youbot_driver.launch" />
 </group>
 
+<!-- startup the simple IK -->
+<group if="$(arg arm)">
+	<!--include file="$(find slaw_youbot_arm_navigation_utils)/launch/joint_trajectory_action.launch" /-->
+    	<node pkg='slaw_youbot_arm_navigation_utils' type='youbot_arm_server.py' name='youbot_arm_server' output="screen" />
 
-<!-- startup the IK -->
- <!-- fake arm with rviz, load the robot description file -->
-        <group if="$(arg sim)">
-	<!-- start robot_state_publisher assuming /joint_states is the default topic -->
-		<include file="$(find slaw_youbot_arm_navigation_utils)/launch/joint_trajectory_action.launch" />
-    		<node pkg='slaw_youbot_arm_navigation_utils' type='youbot_arm_server.py' name='youbot_arm_server' output="screen" />
-
-    		<rosparam file="$(find slaw_youbot_arm_navigation_utils)/config/joints_configuration.yaml" command="load" />
-    		<node pkg='slaw_youbot_arm_navigation_utils' type='youbot_simple_ik_server.py' name='ik_service' output='screen' />
-
-    		<node pkg='slaw_youbot_arm_navigation_utils' type='arm_mockup.py' name='arm_mockup' output='screen' />
-	</group>
-
- <!-- slaw arm navigation -->
-	<group unless="$(arg sim)">
-		<include file="$(find slaw_youbot_arm_navigation)/launch/slaw_arm_navigation.launch" />
-	</group>
-
-<group>
- 	<node pkg='rviz' type='rviz' name='rviz' args="" output='screen' />
+    	<rosparam file="$(find slaw_youbot_arm_navigation_utils)/config/joints_configuration.yaml" command="load" />
+    	<node pkg='slaw_youbot_arm_navigation_utils' type='youbot_simple_ik_server.py' name='ik_service' output='screen' />
 </group>
 
+<!-- laser scanners -->
+<group if="$(arg laser)">
+ <group unless="$(arg sim)">
 
+   <node name="hokuyo_front" pkg="hokuyo_node" type="hokuyo_node" respawn="false" output="screen">
+   <remap from="scan" to="scan_front" />
+   <param name="calibrate_time" type="bool" value="true"/> 
+   <param name="port" type="string" value="/dev/ttyACM0"/> 
+   <param name="intensity" type="bool" value="false"/>
+   <param name="min_ang" value="-2.356194437"/>   
+   <param name="max_ang" value="2.35619443"/>    
+   <param name="cluster" value="1"/>
+   </node>
+
+   <node name="hokuyo_back" pkg="hokuyo_node" type="hokuyo_node" respawn="false" output="screen">
+   <remap from="scan" to="scan_back" />
+   <param name="calibrate_time" type="bool" value="true"/> 
+   <param name="port" type="string" value="/dev/ttyACM1"/> 
+   <param name="intensity" type="bool" value="false"/>
+   <param name="min_ang" value="-2.356194437"/>   
+   <param name="max_ang" value="2.35619443"/>    
+   <param name="cluster" value="1"/>
+   </node>
+  
+  </group>
+</group>
+
+<!-- rviz visualisation -->
+<group if="$(arg visual)">
+ 	<node pkg='rviz' type='rviz' respawn='true' name='rviz' args="-d $(arg rvizconfig)" output='screen' />
+</group>
 
 
 </launch>
