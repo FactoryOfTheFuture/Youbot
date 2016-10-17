@@ -4,7 +4,9 @@
 	<arg name="sim" default="true"/>
 	<arg name="arm" default="true"/>
 	<arg name="laser" default="false"/>
-	
+
+	<arg name="diagnostics" default="true"/>	
+
 	<!-- teleop -->
 	<arg name="teleop" default="true"/>
 	<arg name="keyboard" default="true"/>
@@ -28,6 +30,15 @@
 <group unless="$(arg sim)">
 	<include file="$(find youbot_driver_ros_interface)/launch/youbot_driver.launch" />
 </group>
+
+
+<!-- youbot diagnostics (battery monitor) -->
+<group if="$(arg diagnostics)">
+	<node pkg="youbot_battery_monitor" type="youbot_battery_monitor" name="youbot_battery_monitor" respawn="true" output="screen"
+    args="ttyACM0 eth1 eth0" />
+  	</node>
+</group>
+
 
 <!-- teleop -->
 <group if="$(arg teleop)">
