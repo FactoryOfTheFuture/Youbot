@@ -59,14 +59,16 @@
   </xacro:youbot_gripper>
 
   <!-- base laser front -->
+<!--
   <xacro:hokuyo_urg04_laser name="hokuyo_front" parent="base" ros_topic="scan_front" update_rate="10" min_angle="-2.35" max_angle="2.35">
     <origin xyz="0.25 -0.15 0.06" rpy="3.14 0 0.785398163397448"/>
   </xacro:hokuyo_urg04_laser>
-
+-->
  <!-- base laser back -->
+<!--
   <xacro:hokuyo_urg04_laser name="hokuyo_back" parent="base" ros_topic="scan_back" update_rate="10" min_angle="-2.35" max_angle="2.35">
     <origin xyz="-0.25 0.15 0.06" rpy="3.14 0 -0.785398163397448"/>
   </xacro:hokuyo_urg04_laser>
-
+-->
   
 </robot>

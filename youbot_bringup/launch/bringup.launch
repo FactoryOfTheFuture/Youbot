@@ -2,13 +2,13 @@
 <launch>
 <!-- define argument, use example: roslaunch .... bringup.launch sim:=true -->
 	<arg name="sim" default="true"/>
+	<arg name="gazebo" default="false"/>
 	<arg name="arm" default="true"/>
-	<arg name="laser" default="false"/>
-
+	<arg name="laser" default="true"/>
 	<arg name="diagnostics" default="true"/>	
 
 	<!-- teleop -->
-	<arg name="teleop" default="true"/>
+	<arg name="teleop" default="false"/>
 	<arg name="keyboard" default="true"/>
 	<arg name="ps3" default="false"/>
 	<arg name="arm_teleop" default="false"/>
@@ -34,11 +34,9 @@
 
 <!-- youbot diagnostics (battery monitor) -->
 <group if="$(arg diagnostics)">
-	<node pkg="youbot_battery_monitor" type="youbot_battery_monitor" name="youbot_battery_monitor" respawn="true" output="screen"
-    args="ttyACM0 eth1 eth0" />
-  	</node>
+	<node pkg="youbot_battery_monitor" type="youbot_battery_monitor" name="youbot_battery_monitor" respawn="true" output="screen" launch-prefix="xterm -e" 
+    args="/dev/sensors/youbot eth1 eth0" />
 </group>
-
 
 <!-- teleop -->
 <group if="$(arg teleop)">
@@ -54,15 +52,14 @@
 </group>
 
 <!-- simulation -->
-<group if="$(arg sim)">
+<group if="$(arg gazebo)">
   	<arg name="world" default="robocup_at_work_2012"/>
   	<arg name="init_pos_x" default="0.0"/>
   	<arg name="init_pos_y" default="0.0"/>
   	<arg name="init_pos_z" default="0.0"/>
 
 	<!-- launch world -->
- 	 <include file="$(find youbot_gazebo_worlds)/launch/$(arg world).launch" />
-
+         <include file="$(find youbot_gazebo_worlds)/launch/$(arg world).launch" />
   	<node pkg="gazebo_ros" type="spawn_model" name="spawn_robot" respawn="false" output="screen"
     args="-param robot_description
           -urdf
@@ -91,27 +88,49 @@
 
 <!-- laser scanners -->
 <group if="$(arg laser)">
- 	<group unless="$(arg sim)">
-   		<node name="hokuyo_front" pkg="hokuyo_node" type="hokuyo_node" respawn="false" output="screen">
-  			<remap from="scan" to="scan_front" />
-   			<param name="calibrate_time" type="bool" value="true"/> 
-   			<param name="port" type="string" value="/dev/ttyACM0"/> 
-   			<param name="intensity" type="bool" value="false"/>
-   			<param name="min_ang" value="-2.356194437"/>   
-   			<param name="max_ang" value="2.35619443"/>    
-   			<param name="cluster" value="1"/>
-   		</node>
+  <node name="hokuyo_front" pkg="hokuyo_node" type="hokuyo_node" respawn="true" output="screen">
+    <remap from="/scan" to="/scan_front"/>
+    <!-- Starts up faster, but timestamps will be inaccurate. -->
+    <param name="calibrate_time" type="bool" value="true"/>
+    <!-- Set the port to connect to here -->
+    <param name="port" type="string" value="/dev/sensors/hokuyo_H1100477"/>
+    <param name="frame_id" type="string" value="hokuyo_front_link"/>
+    <param name="min_ang" type="double" value="-2.35"/>
+    <param name="max_ang" type="double" value="2.35"/>
+    <param name="intensity" type="bool" value="false"/>
+  </node>
 
-   		<node name="hokuyo_back" pkg="hokuyo_node" type="hokuyo_node" respawn="false" output="screen">
-   			<remap from="scan" to="scan_back" />
-   			<param name="calibrate_time" type="bool" value="true"/> 
-   			<param name="port" type="string" value="/dev/ttyACM1"/> 
-   			<param name="intensity" type="bool" value="false"/>
-   			<param name="min_ang" value="-2.356194437"/>   
-   			<param name="max_ang" value="2.35619443"/>    
-   			<param name="cluster" value="1"/>
-   		</node>
-  	</group>
+  <node name="hokuyo_back" pkg="hokuyo_node" type="hokuyo_node" respawn="true" output="screen">
+    <remap from="/scan" to="/scan_back"/>
+    <!-- Starts up faster, but timestamps will be inaccurate. -->
+    <param name="calibrate_time" type="bool" value="true"/>
+    <!-- Set the port to connect to here -->
+    <param name="port" type="string" value="/dev/sensors/hokuyo_H0904583"/>
+    <param name="frame_id" type="string" value="hokuyo_back_link"/>
+    <param name="min_ang" type="double" value="-2.35"/>
+    <param name="max_ang" type="double" value="2.35"/>
+    <param name="intensity" type="bool" value="false"/>
+  </node>
+
+  <!-- front laser -->
+  <node pkg="tf" type="static_transform_publisher" name="hokuyo_front_broadcaster" args="0.25 -0.15 0.06 2.35619449019234 3.14 0 base_link hokuyo_front_link 100" />
+  
+  <!-- back laser -->
+  <node pkg="tf" type="static_transform_publisher" name="hokuyo_back_broadcaster" args="-0.25 0.15 0.06 -0.785398163397448 3.14 0 base_link hokuyo_back_link 100" />
+
+  <!-- combine laserscan topics -->
+      <node pkg="ira_laser_tools" name="laserscan_multi_merger" type="laserscan_multi_merger" output="screen">
+		<param name="destination_frame" value="/base_footprint"/>
+		<param name="cloud_destination_topic" value="/merged_cloud"/>
+		<param name="scan_destination_topic" value="/scan_multi"/>
+                <param name="laserscan_topics" value =" /scan_front /scan_back " /> <!-- LIST OF THE LASER SCAN TOPICS TO SUBSCRIBE -->
+	</node>
+<rosparam>
+    laserscan_topics:
+        - /scan_front
+        - /scan_back
+</rosparam>
+
 </group>
 
 <!-- rviz visualisation -->
