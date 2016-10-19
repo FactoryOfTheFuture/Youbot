@@ -1,10 +1,11 @@
 <?xml version="1.0"?>
 <launch>
 <!-- define argument, use example: roslaunch .... bringup.launch sim:=true -->
-	<arg name="sim" default="true"/>
+	<arg name="sim" default="false"/>
 	<arg name="gazebo" default="false"/>
-	<arg name="arm" default="true"/>
-	<arg name="laser" default="true"/>
+	<arg name="mapping" default="false"/>
+	<arg name="arm" default="false"/>
+	<arg name="laser" default="false"/>
 	<arg name="diagnostics" default="true"/>	
 
 	<!-- teleop -->
@@ -14,7 +15,7 @@
 	<arg name="arm_teleop" default="false"/>
 
 	<!-- visual = start rviz -->
-	<arg name="visual" default="true"/>
+	<arg name="visual" default="false"/>
 	<arg name="rvizconfig" default="$(find youbot_bringup)/rviz/urdf.rviz" />
 
 <!-- load the robot description file -->
@@ -34,8 +35,8 @@
 
 <!-- youbot diagnostics (battery monitor) -->
 <group if="$(arg diagnostics)">
-	<node pkg="youbot_battery_monitor" type="youbot_battery_monitor" name="youbot_battery_monitor" respawn="true" output="screen" launch-prefix="xterm -e" 
-    args="/dev/sensors/youbot eth1 eth0" />
+	<node pkg="youbot_battery_monitor" type="youbot_battery_monitor" name="youbot_battery_monitor" respawn="true" output="screen" launch-prefix="" 
+    args="/dev/youbot/lcddisplay wlan0 eth1" />
 </group>
 
 <!-- teleop -->
@@ -123,19 +124,50 @@
 		<param name="destination_frame" value="/base_footprint"/>
 		<param name="cloud_destination_topic" value="/merged_cloud"/>
 		<param name="scan_destination_topic" value="/scan_multi"/>
-                <param name="laserscan_topics" value =" /scan_front /scan_back " /> <!-- LIST OF THE LASER SCAN TOPICS TO SUBSCRIBE -->
+                <param name="laserscan_topics" value =" /scan_front /scan_back " />
 	</node>
-<rosparam>
-    laserscan_topics:
-        - /scan_front
-        - /scan_back
-</rosparam>
 
+</group>
+
+<!-- mapping slam -->
+<group if="$(arg mapping)">
+  <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen">
+    <remap from="/scan" to="scan_multi" />
+    <param name="map_update_interval" value="5.0"/>
+    <param name="maxUrange" value="3.0"/>
+    <param name="maxRange" value="5.0"/>
+    <param name="sigma" value="0.05"/>
+    <param name="kernelSize" value="1"/>
+    <param name="lstep" value="0.05"/>
+    <param name="astep" value="0.05"/>
+    <param name="iterations" value="5"/>
+    <param name="lsigma" value="0.075"/>
+    <param name="ogain" value="3.0"/>
+    <param name="lskip" value="0"/>
+    <param name="srr" value="0.1"/>
+    <param name="srt" value="0.2"/>
+    <param name="str" value="0.1"/>
+    <param name="stt" value="0.2"/>
+    <param name="linearUpdate" value="1.0"/>
+    <param name="angularUpdate" value="0.5"/>
+    <param name="temporalUpdate" value="3.0"/>
+    <param name="resampleThreshold" value="0.5"/>
+    <param name="particles" value="30"/>
+    <param name="xmin" value="-5.0"/>
+    <param name="ymin" value="-5.0"/>
+    <param name="xmax" value="5.0"/>
+    <param name="ymax" value="5.0"/>
+    <param name="delta" value="0.025"/>
+    <param name="llsamplerange" value="0.01"/>
+    <param name="llsamplestep" value="0.01"/>
+    <param name="lasamplerange" value="0.005"/>
+    <param name="lasamplestep" value="0.005"/>
+  </node>
 </group>
 
 <!-- rviz visualisation -->
 <group if="$(arg visual)">
-	<node pkg='rviz' type='rviz' respawn='true' name='rviz' args="-d $(arg rvizconfig)" output='screen' />
+	<node pkg='rviz' type='rviz' respawn='false' name='rviz' args="-d $(arg rvizconfig)" output='screen' />
 </group>
 
 </launch>
