@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<launch>
+
+<node name="hokuyo_front" pkg="hokuyo_node" type="hokuyo_node" respawn="true" output="screen">
+    <remap from="/scan" to="/scan_front"/>
+    <!-- Starts up faster, but timestamps will be inaccurate. -->
+    <param name="calibrate_time" type="bool" value="true"/>
+    <!-- Set the port to connect to here -->
+    <param name="port" type="string" value="/dev/sensors/hokuyo_H1100477"/>
+    <param name="frame_id" type="string" value="hokuyo_front_link"/>
+    <param name="min_ang" type="double" value="-2.35"/>
+    <param name="max_ang" type="double" value="2.35"/>
+    <param name="intensity" type="bool" value="false"/>
+  </node>
+
+  <node name="hokuyo_back" pkg="hokuyo_node" type="hokuyo_node" respawn="true" output="screen">
+    <remap from="/scan" to="/scan_back"/>
+    <!-- Starts up faster, but timestamps will be inaccurate. -->
+    <param name="calibrate_time" type="bool" value="true"/>
+    <!-- Set the port to connect to here -->
+    <param name="port" type="string" value="/dev/sensors/hokuyo_H0904583"/>
+    <param name="frame_id" type="string" value="hokuyo_back_link"/>
+    <param name="min_ang" type="double" value="-2.35"/>
+    <param name="max_ang" type="double" value="2.35"/>
+    <param name="intensity" type="bool" value="false"/>
+  </node>
+
+  <!-- front laser -->
+  <node pkg="tf" type="static_transform_publisher" name="hokuyo_front_broadcaster" args="0.25 -0.15 0.06 2.35619449019234 3.14 0 base_link hokuyo_front_link 100" />
+  
+  <!-- back laser -->
+  <node pkg="tf" type="static_transform_publisher" name="hokuyo_back_broadcaster" args="-0.25 0.15 0.06 -0.785398163397448 3.14 0 base_link hokuyo_back_link 100" />
+
+  <!-- combine laserscan topics -->
+      <node pkg="ira_laser_tools" name="laserscan_multi_merger" type="laserscan_multi_merger" output="screen">
+		<param name="destination_frame" value="/base_footprint"/>
+		<param name="cloud_destination_topic" value="/merged_cloud"/>
+		<param name="scan_destination_topic" value="/scan_multi"/>
+                <param name="laserscan_topics" value =" /scan_front /scan_back " />
+	</node>
+
+
+
+</launch>
