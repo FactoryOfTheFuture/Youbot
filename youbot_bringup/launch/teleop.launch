@@ -2,7 +2,7 @@
 <launch>
 	<!-- teleop arg -->
 	<arg name="keyboard" default="false"/>
-	<arg name="joystick" default="false"/>
+	<arg name="joystick" default="true"/>
 	<arg name="ps3" default="false"/>
 	<arg name="arm_teleop" default="false"/>
 
@@ -23,7 +23,7 @@
 	<arg name="joy_dev" default="/dev/input/js0" />
 
 	<!-- 	Joystick node	http://wiki.ros.org/joy 	-->
-  	<node pkg="joy" type="joy_node" name="rosbee_joy_node">
+  	<node pkg="joy" type="joy_node" name="youbot_joy_node">
  	   	<param name="dev" value="$(arg joy_dev)" />
  	   	<param name="deadzone" value="0.3" />
  	   	<param name="autorepeat_rate" value="20" />
@@ -33,13 +33,8 @@
   			joystick states to velocity commands:
   			http://wiki.ros.org/teleop_twist_joy 	-->
   	<node pkg="teleop_twist_joy" name="youbot_teleop_twist_joy" type="teleop_node">
-		  <param name="enable_button" value="0" />
-		  <param name="enable_turbo_button" value="-1" />
-		  <param name="axis_linear" value="1" />
-		  <param name="scale_linear" value="0.5" />
- 		  <param name="scale_linear_turbo" value="1.0" />
- 		  <param name="axis_angular" value="0" />
-		  <param name="scale_angular" value="0.5" />
+		 <rosparam command="load" file="$(find youbot_bringup)/config/logitech_holonomic.config.yaml" />
+	
 	</node>
 
 

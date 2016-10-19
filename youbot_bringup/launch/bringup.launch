@@ -9,11 +9,13 @@
 	<arg name="laser" default="false"/>
 	<arg name="diagnostics" default="false"/>	
 
-	<arg name="sim" default="false"/>
+	<arg name="youbot" default="false"/>
 
 	<!-- visual = start rviz -->
 	<arg name="visual" default="false"/>
 	<arg name="rvizconfig" default="$(find youbot_bringup)/rviz/urdf.rviz" />
+
+<group if="$(arg youbot)">
 
 <!-- load the robot description file -->
 	<param name="robot_description" command="$(find xacro)/xacro.py $(find youbot_description)/robots/youbot.urdf.xacro" />
@@ -24,10 +26,6 @@
 </group>
 <group if="$(arg sim)">
 	<include file="$(find youbot_bringup)/launch/simulation.launch" />
-</group>
-
-<group if="$(arg teleop)">
-	<include file="$(find youbot_bringup)/launch/teleop.launch" />
 </group>
 
 <!-- youbot diagnostics (battery monitor) -->
@@ -49,6 +47,12 @@
 <!-- mapping slam -->
 <group if="$(arg mapping)">
 	<include file="$(find youbot_bringup)/launch/mapping.launch" />
+</group>
+
+</group>
+
+<group if="$(arg teleop)">
+	<include file="$(find youbot_bringup)/launch/teleop.launch" />
 </group>
 
 <!-- rviz visualisation -->
