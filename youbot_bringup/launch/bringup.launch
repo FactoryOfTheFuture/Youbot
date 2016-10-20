@@ -4,6 +4,7 @@
 	<arg name="sim" default="false"/>
 
 	<arg name="mapping" default="false"/>
+	<arg name="navigation" default="true"/>
 	<arg name="teleop" default="false"/>
 	<arg name="simpleIK" default="false"/>
 	<arg name="laser" default="false"/>
@@ -49,7 +50,15 @@
 	<include file="$(find youbot_bringup)/launch/mapping.launch" />
 </group>
 
+<!-- amcl -->
+<group unless="$(arg mapping)">
+<group if="$(arg navigation)">
+	<!-- start amcl localisation etc. -->
+	<include file="$(find slaw_navigation)/launch/navigation.launch" />
 </group>
+</group> <!--unless mapping -->
+
+</group> <!-- youbot -->
 
 <group if="$(arg teleop)">
 	<include file="$(find youbot_bringup)/launch/teleop.launch" />

@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <launch>
 	<!-- teleop arg -->
-	<arg name="keyboard" default="false"/>
-	<arg name="joystick" default="true"/>
+	<arg name="keyboard" default="true"/>
+	<arg name="joystick" default="false"/>
 	<arg name="ps3" default="false"/>
 	<arg name="arm_teleop" default="false"/>
 
