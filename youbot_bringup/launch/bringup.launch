@@ -50,11 +50,11 @@
 	<include file="$(find youbot_bringup)/launch/mapping.launch" />
 </group>
 
-<!-- amcl -->
+<!-- navigation -->
 <group unless="$(arg mapping)">
 <group if="$(arg navigation)">
 	<!-- start amcl localisation etc. -->
-	<include file="$(find slaw_navigation)/launch/navigation.launch" />
+	<include file="$(find youbot_bringup)/launch/navigation.launch" />
 </group>
 </group> <!--unless mapping -->
 
