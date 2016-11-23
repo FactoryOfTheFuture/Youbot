@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <launch>
 	<!-- teleop arg -->
-	<arg name="keyboard" default="true"/>
-	<arg name="joystick" default="false"/>
-	<arg name="ps3" default="false"/>
+	<arg name="keyboard" default="false"/>
+	<arg name="joystick" default="true"/>
+	<arg name="ps3" default="true"/>
 	<arg name="arm_teleop" default="false"/>
 
 <!-- teleop -->
@@ -12,7 +12,7 @@
   		<node pkg="youbot_driver_ros_interface" type="youbot_keyboard_teleop.py" name="youbot_keyboard_teleop" output="screen" launch-prefix="xterm -e"  />		
 	</group>
 	<group if="$(arg ps3)">
-  		<node pkg="" type="" name="youbot_ps3_teleop" />		
+        	<include file="$(find ps3joy)/launch/ps3.launch" />		
 	</group>
 	<group if="$(arg arm_teleop)">
   		<node pkg="youbot_driver_ros_interface" type="youbot_arm_test" name="youbot_arm_test" output="screen" launch-prefix="xterm -e"  />		

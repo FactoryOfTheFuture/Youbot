@@ -5,10 +5,11 @@
 
 	<arg name="mapping" default="false"/>
 	<arg name="navigation" default="true"/>
-	<arg name="teleop" default="false"/>
+	<arg name="teleop" default="true"/>
+
 	<arg name="simpleIK" default="false"/>
-	<arg name="laser" default="false"/>
-	<arg name="diagnostics" default="false"/>	
+	<arg name="laser" default="true"/>
+	<arg name="diagnostics" default="true"/>	
 
 	<arg name="youbot" default="false"/>
 
@@ -31,8 +32,8 @@
 
 <!-- youbot diagnostics (battery monitor) -->
 <group if="$(arg diagnostics)">
-	<node pkg="youbot_battery_monitor" type="youbot_battery_monitor" name="youbot_battery_monitor" respawn="true" output="screen" launch-prefix="" 
-    args="/dev/youbot/lcddisplay wlan0 eth1" />
+	<node pkg="youbot_battery_monitor" type="youbot_battery_monitor" name="youbot_battery_monitor" respawn="false" output="" launch-prefix="" 
+    args="/dev/youbot/lcd_display eth1 wlan0" />
 </group>
 
 <!-- startup the simple IK -->

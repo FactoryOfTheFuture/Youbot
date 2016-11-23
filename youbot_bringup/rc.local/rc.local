@@ -11,7 +11,7 @@ fi
 echo "Note that we run as root with user config files so some warning outputs are to be expected."
 
 # we source this because of ROS_IP etc:
-source /home/ruud/.bashrc
+source /home/youbot/.bashrc
 
 # but as ~-relative paths from that won't work as we are root,
 # so we make sure we have ros sourced:
@@ -19,11 +19,12 @@ source /home/ruud/.bashrc
 
 # the above line would suffice if we'd use the joystick_drivers from
 # source, but as we have modified them from source we need the catkin_ws
-source /home/ruud/catkin_ws/devel/setup.bash
+source /home/youbot/catkin_ws/devel/setup.bash
 
 
 echo "waiting for roscore being started.."
 while ! rostopic list > /dev/null; do
+	/home/youbot/catkin_ws/src/Youbot/youbot_diagnostics/youbot_battery_monitor/youbot_battery_monitor.sh
 	sleep 1
 done
 echo "roscore ready"
@@ -44,6 +45,6 @@ else
 	echo "Starting ps3joy_node..."
 	#/opt/ros/$ROS_DISTRO/lib/ps3joy/ps3joy_node.py --inactivity-timeout=300  > /var/log/rc_local-ps3joy_node.log 2>&1  &
 	# we need the patched ps3joy_node from catkin workspace:
-	/home/ruud/catkin_ws/src/Youbot/joystick_drivers/ps3joy/scripts/ps3joy_node.py --inactivity-timeout=300  > /var/log/rc_local-ps3joy_node.log 2>&1  &
+	/home/youbot/catkin_ws/src/Youbot/joystick_drivers/ps3joy/scripts/ps3joy_node.py --inactivity-timeout=300  > /var/log/rc_local-ps3joy_node.log 2>&1  &
 	exit 0
 fi
