@@ -1,0 +1,27 @@
+digraph G {
+"odom" -> "base_footprint"[label="Broadcaster: /youbot_driver\nAverage rate: 50.211 Hz\nMost recent transform: 1481117147.453 ( 0.015 sec old)\nBuffer length: 4.800 sec\n"];
+"map" -> "odom"[label="Broadcaster: /amcl\nAverage rate: 29.072 Hz\nMost recent transform: 1481117147.581 ( -0.112 sec old)\nBuffer length: 4.678 sec\n"];
+"base_link" -> "YouBot_Assembly_link"[label="Broadcaster: /robot_state_publisher\nAverage rate: 50.227 Hz\nMost recent transform: 1481117147.950 ( -0.481 sec old)\nBuffer length: 4.798 sec\n"];
+"base_footprint" -> "base_link"[label="Broadcaster: /robot_state_publisher\nAverage rate: 50.227 Hz\nMost recent transform: 1481117147.950 ( -0.481 sec old)\nBuffer length: 4.798 sec\n"];
+"base_link" -> "arm_link_0"[label="Broadcaster: /robot_state_publisher\nAverage rate: 50.227 Hz\nMost recent transform: 1481117147.950 ( -0.481 sec old)\nBuffer length: 4.798 sec\n"];
+"arm_link_5" -> "gripper_palm_link"[label="Broadcaster: /robot_state_publisher\nAverage rate: 50.227 Hz\nMost recent transform: 1481117147.950 ( -0.481 sec old)\nBuffer length: 4.798 sec\n"];
+"arm_link_4" -> "arm_link_5"[label="Broadcaster: /robot_state_publisher\nAverage rate: 31.348 Hz\nMost recent transform: 1481117147.439 ( 0.030 sec old)\nBuffer length: 4.785 sec\n"];
+"arm_link_0" -> "arm_link_1"[label="Broadcaster: /robot_state_publisher\nAverage rate: 31.348 Hz\nMost recent transform: 1481117147.439 ( 0.030 sec old)\nBuffer length: 4.785 sec\n"];
+"arm_link_1" -> "arm_link_2"[label="Broadcaster: /robot_state_publisher\nAverage rate: 31.348 Hz\nMost recent transform: 1481117147.439 ( 0.030 sec old)\nBuffer length: 4.785 sec\n"];
+"arm_link_2" -> "arm_link_3"[label="Broadcaster: /robot_state_publisher\nAverage rate: 31.348 Hz\nMost recent transform: 1481117147.439 ( 0.030 sec old)\nBuffer length: 4.785 sec\n"];
+"arm_link_3" -> "arm_link_4"[label="Broadcaster: /robot_state_publisher\nAverage rate: 31.348 Hz\nMost recent transform: 1481117147.439 ( 0.030 sec old)\nBuffer length: 4.785 sec\n"];
+"base_link" -> "caster_link_bl"[label="Broadcaster: /robot_state_publisher\nAverage rate: 14.798 Hz\nMost recent transform: 1481117147.134 ( 0.335 sec old)\nBuffer length: 4.460 sec\n"];
+"base_link" -> "caster_link_br"[label="Broadcaster: /robot_state_publisher\nAverage rate: 14.798 Hz\nMost recent transform: 1481117147.134 ( 0.335 sec old)\nBuffer length: 4.460 sec\n"];
+"base_link" -> "caster_link_fl"[label="Broadcaster: /robot_state_publisher\nAverage rate: 14.798 Hz\nMost recent transform: 1481117147.134 ( 0.335 sec old)\nBuffer length: 4.460 sec\n"];
+"base_link" -> "caster_link_fr"[label="Broadcaster: /robot_state_publisher\nAverage rate: 14.798 Hz\nMost recent transform: 1481117147.134 ( 0.335 sec old)\nBuffer length: 4.460 sec\n"];
+"caster_link_bl" -> "wheel_link_bl"[label="Broadcaster: /robot_state_publisher\nAverage rate: 14.798 Hz\nMost recent transform: 1481117147.134 ( 0.335 sec old)\nBuffer length: 4.460 sec\n"];
+"caster_link_br" -> "wheel_link_br"[label="Broadcaster: /robot_state_publisher\nAverage rate: 14.798 Hz\nMost recent transform: 1481117147.134 ( 0.335 sec old)\nBuffer length: 4.460 sec\n"];
+"caster_link_fl" -> "wheel_link_fl"[label="Broadcaster: /robot_state_publisher\nAverage rate: 14.798 Hz\nMost recent transform: 1481117147.134 ( 0.335 sec old)\nBuffer length: 4.460 sec\n"];
+"caster_link_fr" -> "wheel_link_fr"[label="Broadcaster: /robot_state_publisher\nAverage rate: 14.798 Hz\nMost recent transform: 1481117147.134 ( 0.335 sec old)\nBuffer length: 4.460 sec\n"];
+"base_link" -> "hokuyo_back_link"[label="Broadcaster: /hokuyo_back_broadcaster\nAverage rate: 10.144 Hz\nMost recent transform: 1481117147.546 ( -0.078 sec old)\nBuffer length: 4.732 sec\n"];
+"base_link" -> "hokuyo_front_link"[label="Broadcaster: /hokuyo_front_broadcaster\nAverage rate: 10.169 Hz\nMost recent transform: 1481117147.550 ( -0.081 sec old)\nBuffer length: 4.720 sec\n"];
+edge [style=invis];
+ subgraph cluster_legend { style=bold; color=black; label ="view_frames Result";
+"Recorded at time: 1481117147.469"[ shape=plaintext ] ;
+ }->"map";
+}

@@ -11,6 +11,8 @@
 	<arg name="laser" default="true"/>
 	<arg name="diagnostics" default="true"/>
 	<arg name="tcp" default="true"/>	
+	<arg name="camera" default="true"/>
+
 
 	<arg name="youbot" default="true"/>
 
@@ -60,6 +62,10 @@
 </group>
 </group> <!--unless mapping -->
 
+<group if="$(arg camera)">
+	<include file="$(find youbot_bringup)/launch/camera.launch" />
+</group>
+
 </group> <!-- youbot -->
 
 <group if="$(arg teleop)">
@@ -75,6 +81,8 @@
 <group if="$(arg tcp)">
 	<node pkg='rosbridge_server' type='rosbridge_tcp' respawn='true' name='rosbridge_server_labview' args="" output='screen' />
 </group>
+
+
 
 
 </launch>
