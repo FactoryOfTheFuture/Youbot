@@ -31,6 +31,12 @@ def create_tucked():
         conf.append(joints[n][joints[n]['tucked']])
     return conf
 
+def create_camerapos():
+    conf = []
+    for n in joint_names:
+        conf.append(joints[n][joints[n]['camera']])
+    return conf
+
 
 def interpolate_joint_speeds(start_conf, end_conf, steps):
     step_size = (end_conf - start_conf) / steps

@@ -17,7 +17,7 @@ from std_srvs.srv import Empty, EmptyResponse
 from sensor_msgs.msg import JointState
 from trajectory_msgs.msg import JointTrajectoryPoint
 
-from slaw_youbot_arm_navigation_utils.arm_utils import create_arm_up, create_tucked, joint_names, get_forward_angle_joint_5, \
+from slaw_youbot_arm_navigation_utils.arm_utils import create_arm_up, create_tucked, create_camerapos, joint_names, get_forward_angle_joint_5, \
     call_ik_solver, configuration_to_array
 
 MAX_SPEED = math.pi/2.
@@ -56,6 +56,7 @@ class ArmServer(object):
         # services
         rospy.Service("/tuck_arm", Empty, self.tuck)
         rospy.Service("/untuck_arm", Empty, self.untuck)
+        rospy.Service("/arm_camerapos", Empty, self.camerapos)
         rospy.Service("/move_arm", MoveArm, self.move_arm)
         rospy.Service("/move_arm_ik", MoveArmIK, self.move_arm_ik)
         rospy.Service("/move_arm_linear", MoveArmLinear, self.move_arm_linear)
@@ -242,6 +243,14 @@ class ArmServer(object):
     def untuck(self, req):
         straight = create_arm_up()
         confs = np.array([straight])
+        self.go_velocity_controlled(confs, MAX_SPEED)
+        return EmptyResponse()
+
+    def camerapos(self, req):
+        straight = create_arm_up()
+	camera = create_camerapos()
+        straight[0] = self.configuration[0]
+        confs = np.array([straight, camera])
         self.go_velocity_controlled(confs, MAX_SPEED)
         return EmptyResponse()
 

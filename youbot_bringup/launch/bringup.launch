@@ -9,7 +9,8 @@
 
 	<arg name="simpleIK" default="true"/>
 	<arg name="laser" default="true"/>
-	<arg name="diagnostics" default="true"/>	
+	<arg name="diagnostics" default="true"/>
+	<arg name="tcp" default="true"/>	
 
 	<arg name="youbot" default="true"/>
 
@@ -69,5 +70,11 @@
 <group if="$(arg visual)">
 	<node pkg='rviz' type='rviz' respawn='false' name='rviz' args="-d $(arg rvizconfig)" output='screen' />
 </group>
+
+<!-- rosbridge tcp server (labview communication) -->
+<group if="$(arg tcp)">
+	<node pkg='rosbridge_server' type='rosbridge_tcp' respawn='true' name='rosbridge_server_labview' args="" output='screen' />
+</group>
+
 
 </launch>

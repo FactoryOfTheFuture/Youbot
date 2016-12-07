@@ -2,7 +2,7 @@
 <launch>
 
 <!-- startup the simple IK -->
-<!--include file="$(find slaw_youbot_arm_navigation_utils)/launch/joint_trajectory_action.launch" /-->
+<include file="$(find slaw_youbot_arm_navigation_utils)/launch/joint_trajectory_action.launch" />
 
 <node pkg='slaw_youbot_arm_navigation_utils' type='youbot_arm_server.py' name='youbot_arm_server' output="screen" />
 <rosparam file="$(find slaw_youbot_arm_navigation_utils)/config/joints_configuration.yaml" command="load" />

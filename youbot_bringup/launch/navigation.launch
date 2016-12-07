@@ -2,7 +2,7 @@
 <launch>
 <!-- load map -->
 <arg name="map" default="lectoraat" />
-<node name="map_server" pkg="map_server" type="map_server" args="$(find youbot_bringup)/maps/$(arg map).yaml" output="screen" />
+<node name="map_server" pkg="map_server" type="map_server" args="$(find youbot_bringup)/maps/$(arg map).yaml" output="log" />
 
 <!-- start localisation -->
 <node pkg="amcl" type="amcl" name="amcl">
