@@ -22,8 +22,9 @@
   <xacro:include filename="$(find youbot_description)/urdf/youbot_arm/arm.urdf.xacro"/>
 
   <!-- youbot gripper -->
-  <xacro:include filename="$(find youbot_description)/urdf/youbot_gripper/gripper.urdf.xacro" />
-  <!-- controller manager -->
+  <!--xacro:include filename="$(find youbot_description)/urdf/youbot_gripper/gripper.urdf.xacro" /-->
+  
+<!-- controller manager -->
   <xacro:include filename="$(find youbot_description)/controller/ros_controller.urdf.xacro" />
   
   <!-- materials for visualization -->
