@@ -17,8 +17,7 @@
     <node name="gripper_controller_spawner" pkg="dynamixel_controllers" type="controller_spawner.py"
           args="--manager=dxl_manager
                 --port=gripper_port
-		--type=simple
-                gripper_controller"
+		gripper_controller"
           output="screen"/>
 
 
