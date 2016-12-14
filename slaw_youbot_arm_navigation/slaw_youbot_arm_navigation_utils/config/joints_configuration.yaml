@@ -50,7 +50,7 @@ joints:
 
     min: 0.0100693
     max: 2.61799
-    camera_j2: 1.85
+    camera_j2: 1.8
     camera: 'camera_j2'
     tucked: 'min'
     
@@ -73,11 +73,11 @@ joints:
     min: 0.0221239
     max: 3.4292
     tucked: 'min'
-    camera_j4: 1.1
+    camera_j4: 1.15
     camera: 'camera_j4'
   arm_joint_5:
     length: 0.182
-    straight: 2.9234
+    straight: 3.0234
     goal: 0.0
     min: 0.110619
     max: 5.64159

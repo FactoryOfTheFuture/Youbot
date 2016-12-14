@@ -1,4 +1,5 @@
 <?xml version="1.0"?>
+
 <launch>
-	<node pkg='tf' type='static_transform_publisher' respawn='true' name='camera_transform_publisher' args="0.0 0.0 0.0 0.0 0.0 0.0 /arm_link_5 /camera_link 10" output='screen' />
+	<node pkg='tf' type='static_transform_publisher' respawn='true' name='camera_transform_publisher' args="0.1 0.0 0.0 -1.57 0.0 0.0 /arm_link_5 /camera_link 10" output='screen' />
 </launch>

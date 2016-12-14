@@ -1,8 +1,0 @@
-# battery monitor display
-KERNEL=="ttyACM0", ACTION=="add", ATTRS{idVendor}=="16d0", MODE="0666", GROUP="dialout", PROGRAM="/etc/youbot/youbot_battery_monitor.sh", SYMLINK+="sensors/youbot"
-
-# front laser
-KERNEL=="ttyACM1", ACTION=="add", ATTRS{idVendor}=="15d1", MODE="0666", GROUP="dialout", PROGRAM="/opt/ros/indigo/env.sh rosrun hokuyo_node getID %N q", SYMLINK+="sensors/hokuyo_%c"
-
-# back laser
-KERNEL=="ttyACM2", ACTION=="add", ATTRS{idVendor}=="15d1", MODE="0666", GROUP="dialout", PROGRAM="/opt/ros/indigo/env.sh rosrun hokuyo_node getID %N q", SYMLINK+="sensors/hokuyo_%c"
