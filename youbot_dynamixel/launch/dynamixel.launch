@@ -4,7 +4,7 @@
             namespace: dxl_manager
             serial_ports:
                 gripper_port:
-                    port_name: "/dev/ttyUSB0"
+                    port_name: "/dev/youbot/dynamixel"
                     baud_rate: 1000000
                     min_motor_id: 1
                     max_motor_id: 25
@@ -12,8 +12,8 @@
         </rosparam>
     </node>
 
-<!-- Start tilt joint controller -->
-    <rosparam file="$(find youbot_dynamixel)/gripper.yaml" command="load"/>
+<!-- Start joint controller -->
+    <rosparam file="$(find youbot_dynamixel)/config/gripper.yaml" command="load"/>
     <node name="gripper_controller_spawner" pkg="dynamixel_controllers" type="controller_spawner.py"
           args="--manager=dxl_manager
                 --port=gripper_port
