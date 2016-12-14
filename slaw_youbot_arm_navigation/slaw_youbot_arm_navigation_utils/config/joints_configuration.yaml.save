@@ -1,0 +1,85 @@
+goal_success: 5
+
+unit: rad
+
+joint_names:
+  - arm_joint_1
+  - arm_joint_2
+  - arm_joint_3
+  - arm_joint_4
+  - arm_joint_5
+
+#arm_base_link_height: 0.177
+#arm_base_link_height: 0.247
+arm_base_link: '/arm_base_link'
+
+arm_rot_offset: 0.0 #-0.7853981633974483 #rotated 45 degreer left
+
+constraints:
+  goal_dif: 0.01
+  intermediate_dif: 0.2
+  goal_time: 0.6
+
+max_effort: 17.0
+
+joints:
+  arm_joint_1:
+    goal: 0.01
+    front_offset: 0.033
+    #front_offset: 0.057
+    #height: 0.147
+    #height: 0.027
+
+    #front_offset: 0.057
+    #height: 0.209
+    height: 0.146
+    #height: 0.115
+
+    straight: 2.9675046
+    min: 0.0100693
+    max: 5.84014
+    camera: 'straight'
+    tucked: 'min'
+    
+  arm_joint_2:
+    length: 0.155
+    #straight: 1.04883
+    straight: 1.134883
+
+    goal: 0.01
+
+    min: 0.0100693
+    max: 2.61799
+    camera_j2: 1.8
+    camera: 'camera_j2'
+    tucked: 'min'
+    
+  arm_joint_3:
+    length: 0.135
+    #straight: -2.43523
+    straight: -2.54823
+    goal: 0.01
+
+    min: -5.02655
+    max: -0.015708
+    tucked: 'max'
+    camera: 'straight'
+  arm_joint_4:
+    length: 0.114
+    #length: 0.32165
+    #straight: 1.73184
+    straight: 1.7885084
+    goal: 0.01
+    min: 0.0221239
+    max: 3.4292
+    tucked: 'min'
+    camera_j4: 1.15
+    camera: 'camera_j4'
+  arm_joint_5:
+    length: 0.182
+    straight: 2.234
+    goal: 0.0
+    min: 0.110619
+    max: 5.64159
+    tucked: 'min'
+    camera: 'straight'

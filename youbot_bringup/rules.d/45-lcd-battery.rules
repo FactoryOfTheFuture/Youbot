@@ -1,0 +1,3 @@
+# battery monitor display
+KERNEL=="ttyACM[0-9]", ACTION=="add", ATTRS{idVendor}=="16d0", MODE="0666", GROUP="dialout", RUN="/etc/youbot/youbot_battery_monitor.sh", SYMLINK+="youbot/lcd_display"
+
