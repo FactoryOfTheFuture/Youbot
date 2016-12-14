@@ -12,6 +12,7 @@
 	<arg name="diagnostics" default="true"/>
 	<arg name="tcp" default="true"/>	
 	<arg name="camera" default="true"/>
+	<arg name="gripper" default="true"/>
 
 
 	<arg name="youbot" default="true"/>
@@ -64,6 +65,10 @@
 
 <group if="$(arg camera)">
 	<include file="$(find youbot_bringup)/launch/camera.launch" />
+</group>
+
+<group if="$(arg gripper)">
+	<include file="$(find youbot_gripper)/launch/gripper.launch" />
 </group>
 
 </group> <!-- youbot -->

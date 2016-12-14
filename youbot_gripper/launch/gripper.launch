@@ -7,18 +7,21 @@
                     port_name: "/dev/youbot/dynamixel"
                     baud_rate: 1000000
                     min_motor_id: 1
-                    max_motor_id: 25
+                    max_motor_id: 3
                     update_rate: 20
         </rosparam>
     </node>
 
 <!-- Start joint controller -->
-    <rosparam file="$(find youbot_dynamixel)/config/gripper.yaml" command="load"/>
+    <rosparam file="$(find youbot_gripper)/config/gripper.yaml" command="load"/>
     <node name="gripper_controller_spawner" pkg="dynamixel_controllers" type="controller_spawner.py"
           args="--manager=dxl_manager
                 --port=gripper_port
+		--type=simple
 		gripper_controller"
           output="screen"/>
 
+<!-- start gripper controller -->
+	<node name="gripper_controller" pkg="youbot_gripper" type="gripper_controller.py" required="false" output="screen" />
 
 </launch>
