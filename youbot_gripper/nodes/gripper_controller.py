@@ -1,12 +1,23 @@
 #!/usr/bin/env python
 import rospy
 from std_msgs.msg import Float64
+from dynamixel_msgs.msg import JointState
 from std_srvs.srv import Empty, EmptyResponse
 
 gripper_open = 3.5
 gripper_close = 0.7
+max_torque = 0.1
+
+WARN_TEMP = 60
 
 pub = rospy.Publisher("/gripper_controller/command", Float64, queue_size=10)
+sub = rospy.Subscriber("/gripper_controller/state", JointState , joint_states_callback)
+
+def joint_states_callback(msg):    
+    effort = abs(msg.load[0])
+    temperatures = msg.motor_temps
+    if temperatures > WARN_TEMP:
+        rospy.logerr("Temperature is getting hot of the gripper, %s", str(self.temperatures))
 
 def GripperController():
     service_open = rospy.Service("/open_gripper", Empty, openGripper)
@@ -17,11 +28,19 @@ def openGripper(req = None):
     if req is not None:
         return EmptyResponse()
 
-def closeGripper(req = None):
+def closeGripper(req = None, max_torque):
+    counter = 0
     send_command(gripper_close)
+    while ():
+        if (is_goal_reached(effort, max_torque)):
+            break
     if req is not None:
         return EmptyResponse()
 
+def is_goal_reached(effort, max_torque):
+    if  (effort >  max_torque):
+        return True
+    return False
     
 def send_command(cmd):
     #rate = rospy.Rate(20)
