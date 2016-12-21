@@ -7,6 +7,8 @@ from std_msgs.msg import String,Bool,Float32
 from geometry_msgs.msg import Pose2D,Point
 import slaw_youbot_arm_navigation_srvs.srv
 global objectposition
+global magazinposition 
+magazinposition = Point(0.0,0.0,0.0)
 objectposition = Point(0.0,0.0,0.0)
 global angle
 angle = 0.0
@@ -16,7 +18,8 @@ next = True
 def state(state):
     print state.data
     if state.data == "object found":
-	print "obejct posistion: " + global objectposition
+	global angle,objectposition,magazinposition
+	print "obejct posistion: " + str(objectposition)
     	velocity_controlled = True
     	side = ""
     	endlink_angle = 0.0
@@ -26,10 +29,30 @@ def state(state):
     	max_speed = 0.8
 	gripper_open()
     	print arm_object(objectposition,angle,velocity_controlled,side,endlink_angle,horizontal,blocking,endeffector_offset,max_speed)
+	objectposition.z = 0.16
+	print arm_object(objectposition,angle,velocity_controlled,side,endlink_angle,horizontal,blocking,endeffector_offset,max_speed)
 	gripper_close()
-	rospy.sleep(1)
+	magazinposition.x = 0.16
+	magazinposition.y = 0.07
+	magazinposition.z = 0.23
+	magazinangle = 0
+        print arm_object(magazinposition,magazinangle,velocity_controlled,side,endlink_angle,horizontal,blocking,endeffector_offset,max_speed)
+	side = "left"
+	print arm_object(magazinposition,magazinangle,velocity_controlled,side,endlink_angle,horizontal,blocking,endeffector_offset,max_speed)	
+	gripper_open()
 	arm_untuck()
-        global next
+	magazinposition.z = 0.226
+	print arm_object(magazinposition,magazinangle,velocity_controlled,side,endlink_angle,horizontal,blocking,endeffector_offset,max_speed)
+	gripper_close()
+	magazinposition.z = 0.232
+	print arm_object(magazinposition,magazinangle,velocity_controlled,side,endlink_angle,horizontal,blocking,endeffector_offset,max_speed)
+	side = "front"
+	print arm_object(magazinposition,magazinangle,velocity_controlled,side,endlink_angle,horizontal,blocking,endeffector_offset,max_speed)
+	objectposition.z = (0.16+0.015)
+	print arm_object(objectposition,angle,velocity_controlled,side,endlink_angle,horizontal,blocking,endeffector_offset,max_speed)	        
+	gripper_open()
+	arm_untuck()
+	global next
         next = True
  
 def pos(position):
@@ -50,7 +73,6 @@ def interfaceinput(ifinput):
 	place1 = item.split(" : ")[1]
 	place2 = item.split(" : ")[2]
 	arm_camerapos()
-	gripper_close()
 	vision_pub.publish("request " + object1)
 	global next
 	next = False
@@ -87,6 +109,7 @@ if __name__ == '__main__':
     vision_sub = rospy.Subscriber('vision/comm', String, state)
     vision_pos = rospy.Subscriber('vision/pos', Pose2D, pos)
     rospy.Subscriber('interface_comm', String, interfaceinput)    
-    arm_tuck()
+    arm_untuck()
+    gripper_open()
     rospy.spin()
     
