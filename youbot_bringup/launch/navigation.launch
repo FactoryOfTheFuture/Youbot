@@ -48,6 +48,7 @@
     <rosparam file="$(find youbot_bringup)/config/base_local_planner_params.yaml" command="load" />
     <param name="odom_topic" value="/odom"/>
     <param name="controller_frequency" value="10.0"/>
+    <param name="clearing_rotation_recovery" value="false"/>
 </node>
 
 </launch>
