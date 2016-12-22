@@ -45,7 +45,8 @@
     <rosparam file="$(find youbot_bringup)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
     <rosparam file="$(find youbot_bringup)/config/local_costmap_params.yaml" command="load" />
     <rosparam file="$(find youbot_bringup)/config/global_costmap_params.yaml" command="load" />
-    <rosparam file="$(find youbot_bringup)/config/base_local_planner_params.yaml" command="load" />
+    <rosparam file="$(find youbot_bringup)/config/dwa_local_planner_params.yaml" command="load" />
+    # <rosparam file="$(find youbot_bringup)/config/base_local_planner_params.yaml" command="load" />
     <param name="odom_topic" value="/odom"/>
     <param name="controller_frequency" value="10.0"/>
     <param name="clearing_rotation_recovery" value="false"/>
